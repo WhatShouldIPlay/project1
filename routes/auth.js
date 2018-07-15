@@ -2,10 +2,11 @@ const express = require("express");
 const passport = require('passport');
 const authRoutes = express.Router();
 const User = require("../models/User");
-
-// Bcrypt to encrypt passwords
+const Picture = require("../models/Picture");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
+const multer = require('multer');
+const upload = multer({dest: '../uploads'});
 
 
 authRoutes.get("/login", (req, res, next) => {
@@ -13,7 +14,7 @@ authRoutes.get("/login", (req, res, next) => {
 });
 
 authRoutes.post("/login", passport.authenticate("local", {
-  successRedirect: "/",
+  successRedirect: "/user",
   failureRedirect: "/auth/login",
   failureFlash: true,
   passReqToCallback: true
@@ -23,10 +24,9 @@ authRoutes.get("/signup", (req, res, next) => {
   res.render("auth/signup");
 });
 
-authRoutes.post("/signup", (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  const rol = req.body.role;
+authRoutes.post("/signup", upload.single('profilePic'), (req, res, next) => {
+  const {username, password, email, age } = req.body;
+  
   if (username === "" || password === "") {
     res.render("auth/signup", { message: "Indicate username and password" });
     return;
@@ -40,20 +40,30 @@ authRoutes.post("/signup", (req, res, next) => {
 
     const salt = bcrypt.genSaltSync(bcryptSalt);
     const hashPass = bcrypt.hashSync(password, salt);
-
+    console.log(req)
+    const newPic = new Picture({
+      filename: req.file.originalname,
+      path: `/uploads/${req.file.filename}`
+    })
+  
     const newUser = new User({
       username,
       password: hashPass,
-      role:"teacher"
+      email,
+      age,
+      profilePic: newPic
     });
 
-    newUser.save((err) => {
-      if (err) {
+    newPic.save()
+      .then(()=>{
+        newUser.save()
+          .then(()=>{
+            res.redirect("/auth/login");
+          })
+      })
+      .catch(err=>{
         res.render("auth/signup", { message: "Something went wrong" });
-      } else {
-        res.redirect("/");
-      }
-    });
+      })
   });
 });
 
