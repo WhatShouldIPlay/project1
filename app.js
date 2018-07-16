@@ -85,4 +85,8 @@ app.use('/auth', authRoutes);
 const userRoutes = require('./routes/user');
 app.use('/user', userRoutes);
 
+const gameRoutes = require('./routes/game');
+app.use('/game', gameRoutes);
+
+
 module.exports = app;
