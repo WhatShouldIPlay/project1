@@ -1,0 +1,65 @@
+<!-- views/auth/signup.hbs -->
+<h2>Edit Game</h2>
+
+<form action="/game/{{game._id}}/edit" method="POST" id="form-container">
+  {{#if message }}
+  <div class="error-message">{{ message }}</div>
+  {{/if}}
+
+  <label for="name">Name</label>
+  <input id="name" type="text" name="name" placeholder="{{game.name}}">
+
+  <br>
+  <br>
+
+  <label for="theme">Theme</label>
+  <select name="theme" id="theme">
+    <option value="Strategy" selected="selected">Strategy</option>
+    <option value="Card Game">Card Game</option>
+    <option value="Negotiation">Negotiation</option>
+    <option value="Economics">Economics</option>
+    <option value="Cooperative">Cooperative</option>
+    <option value="Worker Placement">Worker Placement</option>
+  </select>
+
+  <br>
+  <br>
+
+  <label for="category">Category</label>
+  <select name="category" id="category">
+    <option value="Eurogame" selected="selected">Eurogame</option>
+    <option value="Adventure Game">Adventure Game</option>
+    <option value="Family Game">Family Game</option>
+    <option value="Party Game">Party Game</option>
+  </select>
+  <br>
+  <br>
+
+  <label for="minPlayers">Minimum number of players</label>
+  <input id="minPlayers" type="number" name="minPlayers" min="1" placeholder="1">
+
+  <br>
+  <br>
+  <label for="maxPlayers">Maximum number of players</label>
+  <input id="maxPlayers" type="number" name="maxPlayers" placeholder="12">
+  <br>
+  <br>
+
+  <label for="minAge">Minimum recommended age for players</label>
+  <input id="minAge" type="number" name="minAge" min="1" placeholder="5">
+
+  <br>
+  <br>
+  <label for="maxAge">Maximum recommended age for players</label>
+  <input id="maxAge" type="number" name="maxAge" placeholder="99">
+
+  <br>
+  <br>
+
+  <label for="difficulty">Difficulty</label>
+  <input id="difficulty" type="number" step="0.01" name="difficulty" min="0" max="5" placeholder="From 0 to 5">
+
+  <br>
+  <br>
+  <button>Edit</button>
+</form>

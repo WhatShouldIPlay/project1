@@ -1,0 +1,9 @@
+<h1>Game List</h1>
+{{#each game}}
+<div>
+  <img src="{{img.path}}" alt="{{img.filename}}">
+  <a href="/game/{{_id}}">{{name}}</a>
+  <h3>Min players: {{minPlayers}}, Max Players: {{maxPlayers}}</h3>
+  <h3>Theme: {{theme}} and Category: {{category}}</h3>
+</div>
+{{/each}}

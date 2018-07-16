@@ -46,7 +46,7 @@ userRoutes.get('/:id', (req, res, next)=>{
 // Delete one User
 
 userRoutes.post('/profile/delete', (req, res, next)=>{
-    User.deleteOne({_id: req.user._id})
+    User.findByIdAndRemove(req.user._id)
       .then(()=>{
         res.redirect('/');
       })
