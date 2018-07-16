@@ -1,0 +1,12 @@
+<h2>Groups List</h2>
+{{#each groups}}
+<div>
+  <img src="{{img.path}}" alt="{{img.filename}}">
+  <a href="/group/{{_id}}">{{name}}</a>
+  
+</div>
+{{/each}}
+{{#if message}}
+<label for="">{{message}}</label>
+{{/if}}
+<a href="/group/new">Create group</a>

@@ -1,0 +1,19 @@
+<h2>Group</h2>
+<label for="name">Name: </label>
+<h3>{{group.name}}</h3>
+<label for="location">Location</label>
+<h3>{{group.location}}</h3>
+
+{{#each group.members}}
+<label for="members">Members: </label>
+<h3>{{username}}</h3>
+{{/each}}
+
+<label for="newMembers">New members </label>
+<h3>{{group.newMembers}}</h3>
+
+<img src="{{group.img.path}}" alt="{{group.img.filename}}">
+<a href="/group/{{group._id}}/edit">Edit</a>
+<form action="/group/{{group._id}}/delete" method="POST">
+  <button>Delete Group</button>
+</form>

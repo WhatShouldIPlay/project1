@@ -1,0 +1,37 @@
+<!-- views/auth/signup.hbs -->
+<h2>Edit</h2>
+
+<form action="/group/{{group._id}}/edit" method="POST" id="form-container"> {{!-- enctype="multipart/form-data" --}}
+  {{#if message }}
+  <div class="error-message">{{ message }}</div>
+  {{/if}}
+
+  <label for="name">Group Name</label>
+  <input id="name" type="text" name="name" placeholder="{{group.name}}">
+
+  <br>
+  <br>
+
+  <label for="location">Location</label>
+  <input id="location" type="text" name="location" placeholder="Your location">
+
+  <br>
+  <br>
+
+  <label for="members">Members</label>
+  <input id="members" type="text" name="members" placeholder="Members">
+
+  <br>
+  <br>
+  <label for="newMembers">New Members</label>
+  <input id="checkbox" type="checkbox" name="checkbox" placeholder="Accept new members?">
+
+  {{!-- <br>
+  <br>
+  <label for="img">Imagen</label>
+  <input id="img" type="file" name="img"> --}}
+
+  <br>
+  <br>
+  <button>edit</button>
+</form>
