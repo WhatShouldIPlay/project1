@@ -1,6 +1,8 @@
 const express = require("express");
 const userRoutes = express.Router();
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
+const bcryptSalt = 10;
 
 // READ User
 
@@ -43,9 +45,8 @@ userRoutes.get('/:id', (req, res, next)=>{
 
 // Delete one User
 
-userRoutes.post('/', (req, res, next)=>{
-  if(confirm('You are going to delete your user, are you sure?')){
-    User.deleteOne(req.user._id)
+userRoutes.post('/profile/delete', (req, res, next)=>{
+    User.deleteOne({_id: req.user._id})
       .then(()=>{
         res.redirect('/');
       })
@@ -53,14 +54,11 @@ userRoutes.post('/', (req, res, next)=>{
         console.log(err.message);
         next();
       });
-  } else {
-    res.redirect('/user/')
-  }
 });
 
 // GET page to update one User
 
-userRoutes.get('/user/profile/edit', (req, res, next)=>{
+userRoutes.get('/profile/edit', (req, res, next)=>{
   User.findById(req.user._id)
     .then(user=>{
       res.render('user/edit', {user});
@@ -72,9 +70,17 @@ userRoutes.get('/user/profile/edit', (req, res, next)=>{
 });
 
 // POST to update one user
-userRoutes.post('/user/profile/edit', (req, res, next)=>{
-  const {username, password, email, age } = req.body;
-  User.findByIdAndUpdate(req.params.id,{ username, password, email, age })
+userRoutes.post('/profile/edit', (req, res, next)=>{
+  console.log(req.body);
+  console.log('aqui entra')
+  let {username, password, email, age } = req.body;
+  if(username == '') username = req.user.username;
+  if(password == '') password = req.user.password;
+  if(email == '') email = req.user.email;
+  if(age == '') age = req.user.age;
+  const salt = bcrypt.genSaltSync(bcryptSalt);
+  const hashPass = bcrypt.hashSync(password, salt);
+  User.findByIdAndUpdate(req.user._id , { username, password: hashPass, email, age })
       .then( user => {
         console.log(`User ${user.username} succesfully updated`)
         res.redirect('/user/profile')
