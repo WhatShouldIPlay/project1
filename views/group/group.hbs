@@ -4,10 +4,12 @@
 <label for="location">Location</label>
 <h3>{{group.location}}</h3>
 
-{{#each group.members}}
 <label for="members">Members: </label>
-<h3>{{username}}</h3>
+<ul>
+{{#each group.members}}
+<li>{{username}}</li>
 {{/each}}
+</ul>
 
 <label for="newMembers">New members </label>
 <h3>{{group.newMembers}}</h3>
