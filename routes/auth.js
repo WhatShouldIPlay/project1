@@ -6,7 +6,7 @@ const Picture = require("../models/Picture");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 const multer = require('multer');
-const upload = multer({dest: '../uploads'});
+const upload = multer({dest: './uploads'});
 
 
 authRoutes.get("/login", (req, res, next) => {

@@ -1,0 +1,37 @@
+<!-- views/auth/signup.hbs -->
+<h2>New Group</h2>
+
+<form action="/group/new" method="POST" id="form-container" enctype="multipart/form-data">
+  {{#if message }}
+  <div class="error-message">{{ message }}</div>
+  {{/if}}
+
+  <label for="name">Group Name</label>
+  <input id="name" type="text" name="name" placeholder="Group Name" required>
+
+  <br>
+  <br>
+
+  <label for="location">Location</label>
+  <input id="location" type="text" name="location" placeholder="Your location" required>
+
+  <br>
+  <br>
+
+  <label for="members">Members</label>
+  <input id="members" type="text" name="members" placeholder="Members" required>
+
+  <br>
+  <br>
+  <label for="newMembers">New Members</label>
+  <input id="age" type="checkbox" name="checkbox" placeholder="Accept new members?" required>
+
+  <br>
+  <br>
+  <label for="img">Imagen</label>
+  <input id="img" type="file" name="img" required>
+
+  <br>
+  <br>
+  <button>edit</button>
+</form>

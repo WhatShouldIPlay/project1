@@ -16,7 +16,7 @@ const flash      = require("connect-flash");
 
 mongoose.Promise = Promise;
 mongoose
-  .connect('mongodb://localhost/starter-code', {useMongoClient: true})
+  .connect('mongodb://localhost/whatshouldIplay', {useMongoClient: true})
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {
@@ -84,5 +84,8 @@ app.use('/auth', authRoutes);
 
 const userRoutes = require('./routes/user');
 app.use('/user', userRoutes);
+
+const groupRoutes = require('./routes/group');
+app.use('/group', groupRoutes);
 
 module.exports = app;
