@@ -1,0 +1,37 @@
+<!-- views/auth/signup.hbs -->
+<h2>Edit</h2>
+
+<form action="/user/profile/edit" method="POST" id="form-container">
+  {{#if message }}
+  <div class="error-message">{{ message }}</div>
+  {{/if}}
+
+  <label for="username">Username</label>
+  <input id="username" type="text" name="username" placeholder="JohnDoe">
+
+  <br>
+  <br>
+
+  <label for="password">Password</label>
+  <input id="password" type="password" name="password" placeholder="Your password">
+
+  <br>
+  <br>
+
+  <label for="email">Email</label>
+  <input id="email" type="email" name="email" placeholder="Your email">
+
+  <br>
+  <br>
+  <label for="age">Age</label>
+  <input id="age" type="number" name="age" placeholder="Your age">
+
+  <br>
+  <br>
+  {{!-- <label for="profilePic">Profile Picture</label>
+  <input id="profilePic" type="file" name="profilePic">
+
+  <br>
+  <br> --}}
+  <button>edit</button>
+</form>

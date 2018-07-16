@@ -1,0 +1,7 @@
+<h2>List of Users</h2>
+{{#each users}}
+<div>
+  <img src="{{profilePic.path}}" alt="{{profilePic.filename}}">
+  <a href="/user/{{_id}}">{{username}}</a>
+</div>
+{{/each}}

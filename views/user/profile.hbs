@@ -6,3 +6,7 @@
 <label for="age">Age: </label>
 <h3>{{user.age}}</h3>
 <img src="{{user.profilePic.path}}" alt="{{user.profilePic.filename}}">
+<a href="/user/profile/edit">Edit</a>
+<form action="/user/profile/delete" method="POST">
+  <button>Delete User</button>
+</form>
