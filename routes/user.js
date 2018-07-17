@@ -7,7 +7,7 @@ const bcryptSalt = 10;
 // READ User
 
 userRoutes.get('/profile', (req,res,next)=>{
-  User.findById(req.user.id).populate('profilePic')
+  User.findById(req.user._id).populate('profilePic')
     .then(user=>{
       res.render('user/profile', {user})
     })

@@ -1,10 +1,11 @@
-const mongoose = require('mongoose');
-const User = require('../models/User');
-const Group = require('../models/Group');
-const Game = require('../models/Game');
+const mongoose = require("mongoose");
+const User = require("../models/User");
+const Group = require("../models/Group");
+const Game = require("../models/Game");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
+mongoose.connect("mongodb://localhost/whatshouldIplay");
 
 const users = [
   {
@@ -12,150 +13,127 @@ const users = [
     email: "pacopaco@gmail.com",
     age: 25,
     games: [],
-    profilePic: {},
     groups: [],
-    password: bcrypt.hashSync('123', bcrypt.genSaltSync(bcryptSalt))
-
+    password: bcrypt.hashSync('ObjectId("123")', bcrypt.genSaltSync(bcryptSalt))
   },
   {
     username: "Pepe",
     email: "pepepepe@gmail.com",
     age: 18,
     games: [],
-    profilePic: {},
     groups: [],
-    password: bcrypt.hashSync('123', bcrypt.genSaltSync(bcryptSalt))
+    password: bcrypt.hashSync('ObjectId("123")', bcrypt.genSaltSync(bcryptSalt))
   },
   {
     username: "Amanda",
     email: "amandita@gmail.com",
     age: 28,
     games: [],
-    profilePic: {},
     groups: [],
-    password: bcrypt.hashSync('123', bcrypt.genSaltSync(bcryptSalt))
+    password: bcrypt.hashSync('ObjectId("123")', bcrypt.genSaltSync(bcryptSalt))
   },
   {
     username: "Jose",
     email: "joselito@gmail.com",
     age: 21,
     games: [],
-    profilePic: {},
     groups: [],
-    password: bcrypt.hashSync('123', bcrypt.genSaltSync(bcryptSalt))
+    password: bcrypt.hashSync('ObjectId("123")', bcrypt.genSaltSync(bcryptSalt))
   },
   {
     username: "Manuel",
-    email: "manu123@gmail.com",
+    email: "manu@gmail.com",
     age: 16,
     games: [],
-    profilePic: {},
     groups: [],
-    password: bcrypt.hashSync('123', bcrypt.genSaltSync(bcryptSalt))
+    password: bcrypt.hashSync('ObjectId("123")', bcrypt.genSaltSync(bcryptSalt))
   },
   {
     username: "Marta",
     email: "martichuli@gmail.com",
     age: 20,
     games: [],
-    profilePic: {},
     groups: [],
-    password: bcrypt.hashSync('123', bcrypt.genSaltSync(bcryptSalt))
+    password: bcrypt.hashSync('ObjectId("123")', bcrypt.genSaltSync(bcryptSalt))
   },
   {
     username: "Solo",
     email: "alonee@gmail.com",
     age: 19,
     games: [],
-    profilePic: {},
     groups: [],
-    password: bcrypt.hashSync('123', bcrypt.genSaltSync(bcryptSalt))
+    password: bcrypt.hashSync('ObjectId("123")', bcrypt.genSaltSync(bcryptSalt))
   },
   {
     username: "Nita",
     email: "anitaita@gmail.com",
     age: 32,
     games: [],
-    profilePic: {},
     groups: [],
-    password: bcrypt.hashSync('123', bcrypt.genSaltSync(bcryptSalt))
+    password: bcrypt.hashSync('ObjectId("123")', bcrypt.genSaltSync(bcryptSalt))
   },
   {
     username: "Terminator",
     email: "sayonarababy@gmail.com",
     age: 27,
     games: [],
-    profilePic: {},
     groups: [],
-    password: bcrypt.hashSync('123', bcrypt.genSaltSync(bcryptSalt))
+    password: bcrypt.hashSync('ObjectId("123")', bcrypt.genSaltSync(bcryptSalt))
   },
   {
     username: "Fabio",
-    email: "fake123@gmail.com",
+    email: "fake@gmail.com",
     age: 42,
     games: [],
-    profilePic: {},
     groups: [],
-    password: bcrypt.hashSync('123', bcrypt.genSaltSync(bcryptSalt))
+    password: bcrypt.hashSync('ObjectId("123")', bcrypt.genSaltSync(bcryptSalt))
   }
-]
-
+];
 
 const groups = [
   {
     name: "Acero",
     location: "Madrid",
-    img: {},
     members: [],
     newMembers: true
   },
   {
     name: "Mastodontes",
     location: "Madrid",
-    img: {},
     members: [],
     newMembers: true
   },
   {
     name: "Elite",
     location: "Madrid",
-    img: {},
     members: [],
     newMembers: false
   },
   {
     name: "Gatos malvados",
     location: "Barcelona",
-    img: {},
     members: [],
     newMembers: true
-    
   },
   {
     name: "Fantásticos",
     location: "Madrid",
-    img: {},
     members: [],
     newMembers: false
-    
   },
   {
     name: "Bichos",
     location: "Barcelona",
-    img: {},
     members: [],
     newMembers: true
-    
   },
   {
     name: "Melenas",
     location: "Madrid",
-    img: {},
     members: [],
     newMembers: true
-    
   }
-]
+];
 
 const games = [
   {
@@ -166,8 +144,7 @@ const games = [
     minRecomendedAge: 8,
     maxRecomendedAge: 99,
     difficulty: 2.35,
-    theme: "Economics",
-    img: {}
+    theme: "Economics"
   },
   {
     name: "Agrícola",
@@ -176,9 +153,8 @@ const games = [
     maxPlayers: 5,
     minRecomendedAge: 12,
     maxRecomendedAge: 99,
-    difficulty: 3.40,
-    theme: "Worker Placement",
-    img: {}
+    difficulty: 3.4,
+    theme: "Worker Placement"
   },
   {
     name: "Descend",
@@ -188,7 +164,17 @@ const games = [
     minRecomendedAge: 6,
     maxRecomendedAge: 99,
     difficulty: 2.35,
-    theme: "Cooperative",
-    img: {}
-  },
-]
+    theme: "Cooperative"
+  }
+];
+
+Promise.all([User.create(users), Group.create(groups), Game.create(games)])
+  .then(results => {
+    console.log(`created ${results[0].length} users`);
+    console.log(`created ${results[1].length} groups`);
+    console.log(`created ${results[2].length} games`);
+    mongoose.connection.close();
+  })
+  .catch(err => {
+    console.log(err);
+  });
