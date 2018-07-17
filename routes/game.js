@@ -2,6 +2,7 @@ const express = require("express");
 const gameRoutes = express.Router();
 const Game = require("../models/Game");
 const Picture = require("../models/Picture");
+const User = require("../models/User");
 const multer = require('multer');
 const upload = multer({
   dest: './uploads'
@@ -153,5 +154,19 @@ gameRoutes.post("/:id/edit", (req, res, next) => {
       next();
     });
 });
+
+/*gameRoutes.get('/user/:id', (req, res, next) => {
+  Game.find({})
+    User.findById(req.params.id)
+      .then(game => {
+        res.render('game/game', {
+          game
+        });
+      })
+      .catch(err => {
+        console.log(err.message);
+        next();
+      })
+})*/
 
 module.exports = gameRoutes;
