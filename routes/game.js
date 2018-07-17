@@ -3,49 +3,66 @@ const gameRoutes = express.Router();
 const Game = require("../models/Game");
 const Picture = require("../models/Picture");
 const multer = require('multer');
-const upload = multer({dest: './uploads'});
+const upload = multer({
+  dest: './uploads'
+});
 
 // READ Games
 
-gameRoutes.get('/', (req,res,next)=>{
+gameRoutes.get('/', (req, res, next) => {
   Game.find({}).populate('img')
-    .then(game=>{
-      res.render('game/list', {game})
+    .then(game => {
+      res.render('game/list', {
+        game
+      })
     })
-    .catch(err=>{
+    .catch(err => {
       console.log(err.message);
       next();
     })
 });
 
-gameRoutes.get('/:id', (req, res, next)=>{
+gameRoutes.get('/:id', (req, res, next) => {
   Game.findById(req.params.id).populate('img')
-    .then(game=>{
-      res.render('game/game', {game});
+    .then(game => {
+      res.render('game/game', {
+        game
+      });
     })
-    .catch(err=>{
+    .catch(err => {
       console.log(err.message);
       next();
     })
 })
 
-gameRoutes.get('/new', upload.single('img'), (req, res, next)=>{
+gameRoutes.get('/new', upload.single('img'), (req, res, next) => {
   res.render('game/new');
 })
 
-gameRoutes.post('/new', upload.single('img'), (req,res,next)=>{
+gameRoutes.post('/new', upload.single('img'), (req, res, next) => {
   console.log(req.file);
-  const { name, theme, category, minPlayers, maxPlayers, minAge, maxAge, difficulty } = req.body;
-  if( name == '' ||
-      theme == '' ||
-      category == '' ||
-      minPlayers == '' ||
-      maxPlayers == '' ||
-      minAge == '' ||
-      maxAge == '' ||
-      difficulty == ''){
-        res.render('game/new', {message: 'Every field is required'})
-      }
+  const {
+    name,
+    theme,
+    category,
+    minPlayers,
+    maxPlayers,
+    minAge,
+    maxAge,
+    difficulty
+  } = req.body;
+  if (name == '' ||
+    theme == '' ||
+    category == '' ||
+    minPlayers == '' ||
+    maxPlayers == '' ||
+    minAge == '' ||
+    maxAge == '' ||
+    difficulty == '') {
+    res.render('game/new', {
+      message: 'Every field is required'
+    })
+  }
   const newPic = new Picture({
     filename: req.file.originalname,
     path: `/uploads/${req.file.filename}`
@@ -59,61 +76,82 @@ gameRoutes.post('/new', upload.single('img'), (req,res,next)=>{
     minAge,
     maxAge,
     difficulty,
+    owner: req.user._id,
     img: newPic
   })
 
   newPic.save()
-    .then(()=>{
+    .then(() => {
       newGame.save()
-        .then(()=>{
+        .then(() => {
           res.redirect('/user/profile')
         })
     })
 })
 
-gameRoutes. post('/:id/delete', (req, res, next)=>{
+gameRoutes.post('/:id/delete', (req, res, next) => {
   Game.findByIdAndRemove(req.params.id)
-    .then(()=>{
+    .then(() => {
       res.redirect('/user/profile');
     })
-    .catch(e=>{
+    .catch(e => {
       console.log(e.message);
       next();
     })
 })
 
-gameRoutes.get('/:id/edit', (req, res, next)=>{
+gameRoutes.get('/:id/edit', (req, res, next) => {
   Game.findById(req.params.id)
-  .then(game=>{
-    res.render('game/edit', {game});
-  })
-  .catch(err=>{
-    console.log(err.message);
-    next();
-  });
-})
-
-gameRoutes.post('/:id/edit', (req, res, next)=>{
-  let { name, theme, category, minPlayers, maxPlayers, minAge, maxAge, difficulty } = req.body;
-  Game.findById(req.params.id)
-    .then(game=>{
-      if(name=='') name = game.name;
-      if(theme=='') theme = game.theme;
-      if(category=='') category = game.category;
-      if(minPlayers =='') minPlayers = game.minPlayers ;
-      if(maxPlayers=='') maxPlayers = game.maxPlayers;
-      if(minAge=='') minAge = game.minAge;
-      if(maxAge=='') maxAge = game.maxAge;
-      if(difficulty=='') difficulty = game.difficulty;
-      Game.findByIdAndUpdate(game._id, {name, theme, category, minPlayers, maxPlayers, minAge, maxAge, difficulty})
-        .then(()=>{
-          res.redirect('/user/profile')
-        })
-        .catch(e=>{
-          console.log(e.message)
-          next();
-        });
+    .then(game => {
+      res.render('game/edit', {
+        game
+      });
     })
-
+    .catch(err => {
+      console.log(err.message);
+      next();
+    });
 })
+
+gameRoutes.post("/:id/edit", (req, res, next) => {
+  let {
+    name,
+    theme,
+    category,
+    minPlayers,
+    maxPlayers,
+    minAge,
+    maxAge,
+    difficulty
+  } = req.body;
+  const update = {
+    name,
+    theme,
+    category,
+    minPlayers,
+    maxPlayers,
+    minAge,
+    maxAge,
+    difficulty
+  }
+  
+  if (name == "") delete update.name;
+  if (theme == "") delete update.theme;
+  if (category == "") delete update.category;
+  if (minPlayers == "") delete update.minPlayers;
+  if (maxPlayers == "") delete update.maxPlayers;
+  if (minAge == "") delete update.difficulty;
+  if (maxAge == "") delete update.difficulty;
+  if (difficulty == "") delete update.difficulty;
+
+  Game.findByIdAndUpdate(req.params.id, update)
+    .then(() => {
+      res.redirect("/user/profile");
+    })
+    .catch(e => {
+      console.log(e.message);
+      next();
+    });
+});
+
 module.exports = gameRoutes;

@@ -1,0 +1,38 @@
+<!-- views/auth/signup.hbs -->
+<h2>New Appointment</h2>
+
+<form action="/appointment/new" method="POST" id="form-container">
+  {{#if message }}
+  <div class="error-message">{{ message }}</div>
+  {{/if}}
+
+  <label for="date">Date:</label>
+  <input id="date" type="date" name="date" placeholder="Group Name" required>
+
+  <br>
+  <br>
+
+  <label for="time">Time:</label>
+  <input id="time" type="time" name="time" placeholder="Your time" required>
+
+  <br>
+  <br>
+
+  <label for="players">Players: </label>
+  <input id="players" type="text" name="players" placeholder="Players who are participating" required>
+
+  <br>
+  <br>
+  <label for="group">Group: </label>
+  <input id="group" type="text" name="group" placeholder="Insert a group" required>
+
+  <br>
+  <br>
+  <label for="game">Game: </label>
+  <input id="game" type="text" name="game" placeholder="What are you gonna play?" required>
+
+  <br>
+  <br>
+
+  <button>Create</button>
+</form>

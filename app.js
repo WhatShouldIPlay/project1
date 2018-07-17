@@ -91,4 +91,7 @@ app.use('/game', gameRoutes);
 const groupRoutes = require('./routes/group');
 app.use('/group', groupRoutes);
 
+const appointmentRoutes = require('./routes/appointment');
+app.use('/appointment', appointmentRoutes);
+
 module.exports = app;
