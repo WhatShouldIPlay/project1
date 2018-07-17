@@ -2,7 +2,7 @@ body {
   font: 18px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
-  color: #01be43; }
+  text-decoration: none; }
 
 nav {
   width: 100%;
@@ -39,6 +39,6 @@ form label {
   color: #01be43; }
 
 form input {
-  width: 100%; }
+  width: 30%; }
 
 /*# sourceMappingURL=style.css.map */
