@@ -35,9 +35,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Express View engine setup
-
+console.log(__dirname);
 app.use(require('node-sass-middleware')({
-  src:  path.join(__dirname, 'scss'),
+  src: path.join(__dirname, 'scss'),
   dest: path.join(__dirname, 'public'),
   sourceMap: true
 }));
@@ -62,7 +62,7 @@ hbs.registerHelper('ifUndefined', (value, options) => {
   
 
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+app.locals.title = 'What Should I Play?';
 
 
 // Enable authentication using session + passport

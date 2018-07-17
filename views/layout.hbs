@@ -5,6 +5,26 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+    <nav>
+      {{#unless user}}
+      <div class="auth">
+        <a href="/auth/signup">Sign Up</a>
+        <br>
+        <a href="/auth/login">Log in</a>
+        <br> 
+      </div>
+      {{/unless}}
+      {{#if user}}
+      <div>
+        <a href="/user">Check my profile</a>
+        <br>
+        <a href="/auth/logout">Log out</a>
+        <br>
+        <a href="/group/list">Group List</a>
+        <br> 
+      </div>
+      {{/if}}
+    </nav>
 
     {{{body}}}
 
