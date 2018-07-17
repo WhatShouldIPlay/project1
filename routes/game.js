@@ -33,7 +33,7 @@ gameRoutes.get('/:id', (req, res, next) => {
       console.log(err.message);
       next();
     })
-})
+});
 
 gameRoutes.get('/new', upload.single('img'), (req, res, next) => {
   res.render('game/new');
@@ -63,6 +63,8 @@ gameRoutes.post('/new', upload.single('img'), (req, res, next) => {
       message: 'Every field is required'
     })
   }
+
+  
   const newPic = new Picture({
     filename: req.file.originalname,
     path: `/uploads/${req.file.filename}`
