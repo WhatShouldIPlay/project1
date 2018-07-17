@@ -1,0 +1,15 @@
+<h1>{{appointment.game.name}}</h1>
+
+<h2>{{appointment.date}}</h2>
+<h2>{{appointment.time}}</h2>
+<h2>{{appointment.group.name}}</h2>
+<ul>
+{{#each appointment.players}}
+  <li>{{username}}</li>
+{{/each}}
+</ul>
+
+<a href="/appointment/{{appointment._id}}/edit">Edit this appointment</a>
+<form action="/appointment/{{appointment._id}}/delete" method="POST">
+<button>Delete this appointment</button>
+</form>

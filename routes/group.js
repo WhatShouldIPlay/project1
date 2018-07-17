@@ -78,6 +78,7 @@ groupRoutes.post("/new", upload.single("img"), (req, res, next) => {
     })
     .catch(err => {
       console.log(err);
+      next();
     });
 });
 

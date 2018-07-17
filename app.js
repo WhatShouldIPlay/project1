@@ -37,7 +37,7 @@ app.use(cookieParser());
 // Express View engine setup
 
 app.use(require('node-sass-middleware')({
-  src:  path.join(__dirname, 'public'),
+  src:  path.join(__dirname, 'scss'),
   dest: path.join(__dirname, 'public'),
   sourceMap: true
 }));
@@ -90,5 +90,8 @@ app.use('/game', gameRoutes);
 
 const groupRoutes = require('./routes/group');
 app.use('/group', groupRoutes);
+
+const appointmentRoutes = require('./routes/appointment');
+app.use('/appointment', appointmentRoutes);
 
 module.exports = app;

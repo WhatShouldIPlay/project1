@@ -2,7 +2,7 @@
 	"version": 3,
 	"file": "style.css",
 	"sources": [
-		"style.scss"
+		"../../scss/stylesheets/style.scss"
 	],
 	"names": [],
 	"mappings": "AAAA,AAAA,IAAI,CAAC;EACH,OAAO,EAAE,IAAI;EACb,IAAI,EAAE,kDAAkD,GACzD;;AAED,AAAA,CAAC,CAAC;EACA,KAAK,EAAE,OAAO,GACf"

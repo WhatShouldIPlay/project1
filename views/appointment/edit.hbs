@@ -1,0 +1,38 @@
+<!-- views/auth/signup.hbs -->
+<h2>Edit Appointment</h2>
+
+<form action="/appointment/{{appointment._id}}/edit" method="POST" id="form-container">
+  {{#if message }}
+  <div class="error-message">{{ message }}</div>
+  {{/if}}
+
+  <label for="date">Date:</label>
+  <input id="date" type="date" name="date" value="{{appointment.date}}">
+
+  <br>
+  <br>
+
+  <label for="time">Time:</label>
+  <input id="time" type="time" name="time" value="{{appointment.time}}">
+
+  <br>
+  <br>
+
+  <label for="players">Players: </label>
+  <input id="players" type="text" name="players" placeholder="Players for this game">
+
+  <br>
+  <br>
+  <label for="group">Group: </label>
+  <input id="group" type="text" name="text" placeholder="{{appointment.group}}">
+
+  <br>
+  <br>
+  <label for="game">Game: </label>
+  <input id="game" type="text" name="game" placeholder="{{appointment.game}}">
+
+  <br>
+  <br>
+
+  <button>Edit</button>
+</form>
