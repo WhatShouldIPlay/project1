@@ -157,18 +157,19 @@ gameRoutes.post("/:id/edit", (req, res, next) => {
     });
 });
 
-/*gameRoutes.get('/user/:id', (req, res, next) => {
-  Game.find({})
-    User.findById(req.params.id)
-      .then(game => {
-        res.render('game/game', {
-          game
-        });
-      })
-      .catch(err => {
-        console.log(err.message);
-        next();
-      })
-})*/
+
+gameRoutes.get('/user/:id', (req, res, next)=>{
+  User.findById(req.params.id)
+    .populate('games')
+  .then(game=>{
+    console.log(game)
+    res.render('game/list', {game});
+  })
+  .catch(err=>{
+    console.log(err.message);
+    next();
+  });
+})
+
 
 module.exports = gameRoutes;
