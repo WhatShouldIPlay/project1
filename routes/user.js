@@ -1,6 +1,9 @@
 const express = require("express");
 const userRoutes = express.Router();
 const User = require("../models/User");
+const Game = require("../models/Game");
+const bgg = require('bgg-axios');
+const axios = require('axios');
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
@@ -90,5 +93,40 @@ userRoutes.post('/profile/edit', (req, res, next)=>{
         next();
       });
 });
+
+userRoutes.get('/profile/import', (req, res, next)=>{
+  
+  const { importUsername } = req.query;
+    axios.get(`https://bgg-json.azurewebsites.net/collection/${importUsername}?grouped=true` )
+      .then(resp=>{
+        resp.data = resp.data.filter(e=>e.owned==true)
+        dataResult=[];
+        console.log(resp.data[1]);
+        resp.data.forEach(e=>{
+          newGame = new Game({
+            name: e.name,
+            minPlayers: e.minPlayers,
+            maxPlayers: e.maxPlayers,
+            owner: req.user._id,
+          });
+          dataResult.push(newGame);
+        });
+
+        Game.create(dataResult)
+          .then(games=>{
+            let gamesId = [];
+            games.forEach(e=>gamesId.push(e._id))
+            User.findByIdAndUpdate(req.user._id, {games: gamesId})
+            .then(games=>{
+              console.log(`Imported ${games.length} Games`)
+              res.redirect('/user/profile')
+            })
+          })
+      })
+      .catch(e=>{
+        console.log(e);
+        next();
+      })
+})
 
 module.exports = userRoutes;

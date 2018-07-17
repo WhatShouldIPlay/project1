@@ -7,6 +7,12 @@
 <h3>{{user.age}}</h3>
 <img src="{{user.profilePic.path}}" alt="{{user.profilePic.filename}}">
 <a href="/user/profile/edit">Edit</a>
+<form action="/user/profile/import" method="get">
+  <span>Import your games from your BGG profile</span>
+  <label for="importUsername">Username on BGG:</label>
+  <input type="text" name="importUsername">
+  <button>Import</button>
+</form>
 <form action="/user/profile/delete" method="POST">
 <a href="/group/list">Group List</a>
 <a href="/game">Game List</a>
