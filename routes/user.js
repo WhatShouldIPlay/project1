@@ -6,6 +6,7 @@ const Picture = require("../models/Picture");
 const axios = require('axios');
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
+const upload = require("../cloudinaryConfig/cloudinary.js");
 
 
 
@@ -76,7 +77,7 @@ userRoutes.get('/profile/edit', (req, res, next)=>{
 
 // POST to update one user
 
-userRoutes.post("/:id/edit", (req, res, next) => {
+userRoutes.post("/:id/edit", upload.single("profilePic"), (req, res, next) => {
   let { username, password, email, age } = req.body;
   const update = {
     username,
@@ -94,7 +95,28 @@ userRoutes.post("/:id/edit", (req, res, next) => {
   }
   if (!email) delete update.email;
   if (!age) delete update.age; 
-
+  if(req.file){
+    const newPic = new Picture({
+      filename: req.file.originalname,
+      path: req.file.url
+    })
+    update.profilePic = newPic;
+    newPic.save()
+      .then(()=>{
+        User.findByIdAndUpdate(req.params.id, update)
+          .then(() => {
+            res.redirect("/user/profile");
+          })
+          .catch(e => {
+            console.log(e.message);
+            next();
+          });
+      })
+      .catch(e => {
+        console.log(e.message);
+        next();
+      });
+  } else {
   User.findByIdAndUpdate(req.params.id , update)
       .then( user => {
         res.redirect('/user/profile')
@@ -103,6 +125,7 @@ userRoutes.post("/:id/edit", (req, res, next) => {
         console.log(err.message);
         next();
       });
+  }
 });
 
 

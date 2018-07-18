@@ -126,8 +126,6 @@ gameRoutes.post("/:id/edit", upload.single("img"), (req, res, next) => {
     difficulty
   } = req.body;
 
-  console.log(req.file);
-
   const update = {
     name,
     theme,
