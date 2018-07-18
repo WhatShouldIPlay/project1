@@ -6,24 +6,19 @@
   </head>
   <body>
     <nav>
+      {{#if user}}
+      <div class="auth">
+        <a href="/user/profile">Check my profile</a>
+        <a href="/group/list">Group List</a>
+        <a href="/auth/logout">Log out</a>
+      </div>
+      {{/if}}
       {{#unless user}}
       <div class="auth">
         <a href="/auth/signup">Sign Up</a>
-        <br>
         <a href="/auth/login">Log in</a>
-        <br> 
       </div>
       {{/unless}}
-      {{#if user}}
-      <div class="auth">
-        <a href="/user">Check my profile</a>
-        <br>
-        <a href="/auth/logout">Log out</a>
-        <br>
-        <a href="/group/list">Group List</a>
-        <br> 
-      </div>
-      {{/if}}
     </nav>
 
     {{{body}}}

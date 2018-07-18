@@ -2,7 +2,6 @@ const express = require("express");
 const userRoutes = express.Router();
 const User = require("../models/User");
 const Game = require("../models/Game");
-const bgg = require('bgg-axios');
 const axios = require('axios');
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
