@@ -1,4 +1,7 @@
-require('dotenv').config();
+const dotenv = require('dotenv')
+
+dotenv.config();
+dotenv.config({path: __dirname + '/.env.private'});
 
 const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -8,15 +11,14 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
-
 const session    = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
-    
+
 
 mongoose.Promise = Promise;
 mongoose
-  .connect('mongodb://localhost/whatshouldIplay', {useMongoClient: true})
+  .connect(process.env.DBURL, {useMongoClient: true})
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {
@@ -60,10 +62,6 @@ hbs.registerHelper('ifUndefined', (value, options) => {
 });
   
 
-// default value for title local
-
-
-
 // Enable authentication using session + passport
 app.use(session({
   secret: 'gamenetwork',
@@ -74,6 +72,7 @@ app.use(session({
 app.use(flash());
 require('./passport')(app);
 
+// default value for title local
 app.use((req, res, next) => {
   res.locals.title = 'What Should I Play?';
   res.locals.user = req.user;

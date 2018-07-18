@@ -72,4 +72,13 @@ authRoutes.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
+//Google social login
+authRoutes.get("/google", passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+
+authRoutes.get("/google/callback", passport.authenticate("google", {
+  successRedirect: "/user/profile",
+  failureRedirect: "/"
+}));
+
+
 module.exports = authRoutes;

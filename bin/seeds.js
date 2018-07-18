@@ -5,7 +5,7 @@ const Game = require("../models/Game");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
-mongoose.connect("mongodb://localhost/whatshouldIplay");
+mongoose.connect(process.env.DBURL);
 
 const users = [
   {
