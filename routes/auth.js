@@ -40,10 +40,9 @@ authRoutes.post("/signup", upload.single('profilePic'), (req, res, next) => {
 
     const salt = bcrypt.genSaltSync(bcryptSalt);
     const hashPass = bcrypt.hashSync(password, salt);
-    console.log(req)
     const newPic = new Picture({
       filename: req.file.originalname,
-      path: `/uploads/${req.file.filename}`
+      path: req.file.url
     })
   
     const newUser = new User({

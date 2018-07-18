@@ -127,7 +127,6 @@ groupRoutes.get("/:id/edit", (req, res, next) => {
 // POST to update a group
 groupRoutes.post("/:id/edit", upload.single('img'), (req, res, next) => {
   let { name, location, members, newMembers } = req.body;
-  console.log('REQUEST BODY', req.file);
   Group.findById(req.params.id)
     .then(group => {
       if (name == "") name = group.name;

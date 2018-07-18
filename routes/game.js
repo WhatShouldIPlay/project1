@@ -3,10 +3,8 @@ const gameRoutes = express.Router();
 const Game = require("../models/Game");
 const Picture = require("../models/Picture");
 const User = require("../models/User");
-const multer = require("multer");
-const upload = multer({
-  dest: "./uploads"
-});
+const multer = require('multer');
+const upload = require("../cloudinaryConfig/cloudinary.js");
 
 // READ Games
 
@@ -38,12 +36,11 @@ gameRoutes.get("/:id", (req, res, next) => {
     });
 });
 
-gameRoutes.get("/new", upload.single("img"), (req, res, next) => {
+gameRoutes.get("/new", (req, res, next) => {
   res.render("game/new");
 });
 
 gameRoutes.post("/new", upload.single("img"), (req, res, next) => {
-  console.log(req.file);
   const {
     name,
     theme,
@@ -117,7 +114,7 @@ gameRoutes.get("/:id/edit", (req, res, next) => {
     });
 });
 
-gameRoutes.post("/:id/edit", (req, res, next) => {
+gameRoutes.post("/:id/edit", upload.single("img"), (req, res, next) => {
   let {
     name,
     theme,
@@ -128,6 +125,9 @@ gameRoutes.post("/:id/edit", (req, res, next) => {
     maxAge,
     difficulty
   } = req.body;
+
+  console.log(req.file);
+
   const update = {
     name,
     theme,
@@ -147,22 +147,44 @@ gameRoutes.post("/:id/edit", (req, res, next) => {
   if (minAge == "") delete update.difficulty;
   if (maxAge == "") delete update.difficulty;
   if (difficulty == "") delete update.difficulty;
-
-  Game.findByIdAndUpdate(req.params.id, update)
-    .then(() => {
-      res.redirect("/user/profile");
+  console.log(req.file);
+  if (req.file){
+    const newPic = new Picture({
+      filename: req.file.originalname,
+      path: req.file.url
     })
-    .catch(e => {
-      console.log(e.message);
-      next();
-    });
+    update.img = newPic;
+    newPic.save()
+      .then(()=>{
+        Game.findByIdAndUpdate(req.params.id, update)
+          .then(() => {
+            res.redirect("/user/profile");
+          })
+          .catch(e => {
+            console.log(e.message);
+            next();
+          });
+      })
+      .catch(e => {
+        console.log(e.message);
+        next();
+      });
+  } else {
+    Game.findByIdAndUpdate(req.params.id, update)
+          .then(() => {
+            res.redirect("/user/profile");
+          })
+          .catch(e => {
+            console.log(e.message);
+            next();
+          });
+  }
 });
 
 gameRoutes.get("/user/:id", (req, res, next) => {
   User.findById(req.params.id)
-    .populate("games")
+    .populate({path:'games', populate:{path: 'img'}})
     .then(game => {
-      console.log(game);
       res.render("game/list", {
         game: game.games
       });

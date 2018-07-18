@@ -2,6 +2,7 @@ const express = require("express");
 const userRoutes = express.Router();
 const User = require("../models/User");
 const Game = require("../models/Game");
+const Picture = require("../models/Picture");
 const axios = require('axios');
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
@@ -73,8 +74,6 @@ userRoutes.get('/profile/edit', (req, res, next)=>{
 
 // POST to update one user
 userRoutes.post('/profile/edit', (req, res, next)=>{
-  console.log(req.body);
-  console.log('aqui entra')
   let {username, password, email, age } = req.body;
   if(username == '') username = req.user.username;
   if(password == '') password = req.user.password;
@@ -100,26 +99,44 @@ userRoutes.get('/profile/import', (req, res, next)=>{
       .then(resp=>{
         resp.data = resp.data.filter(e=>e.owned==true)
         dataResult=[];
-        console.log(resp.data[1]);
+        imageResult=[];
         resp.data.forEach(e=>{
+          newImage = new Picture({
+            path: e.image,
+            filename: `${e.name}.jpg`
+          })
           newGame = new Game({
             name: e.name,
             minPlayers: e.minPlayers,
             maxPlayers: e.maxPlayers,
             owner: req.user._id,
+            img: newImage._id
           });
           dataResult.push(newGame);
+          imageResult.push(newImage);
         });
-
-        Game.create(dataResult)
-          .then(games=>{
+        console.log(dataResult[0]);
+        console.log(imageResult[0])
+        Promise.all([
+          Game.create(dataResult),
+          Picture.create(imageResult)
+        ])
+          .then(result=>{
             let gamesId = [];
-            games.forEach(e=>gamesId.push(e._id))
-            User.findByIdAndUpdate(req.user._id, {games: gamesId})
-            .then(games=>{
-              console.log(`Imported ${games.length} Games`)
-              res.redirect('/user/profile')
-            })
+            result[0].forEach(e=>gamesId.push(e._id))
+            User.findByIdAndUpdate(req.user._id, {games: gamesId}, {new:true})
+              .then(games=>{
+                console.log(`Imported ${games.length} Games`)
+                res.redirect('/user/profile')
+              })
+              .catch(e=>{
+                console.log(e);
+                next();
+              })
+          })
+          .catch(e=>{
+            console.log(e);
+            next();
           })
       })
       .catch(e=>{

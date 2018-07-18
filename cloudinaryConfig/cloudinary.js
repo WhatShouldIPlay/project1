@@ -1,6 +1,8 @@
 const cloudinary = require("cloudinary");
 const cloudinaryStorage = require("multer-storage-cloudinary");
 const multer = require("multer");
+const bcrypt = require("bcrypt");
+const bcryptSalt = 10;
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -8,12 +10,15 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET
 });
 
+
+
 var storage = cloudinaryStorage({
   cloudinary: cloudinary,
   folder: "WhatShouldIPlay",
   allowedFormats: ["jpg", "png"],
   filename: function(req, file, cb) {
-    photo = new Date().getTime();
+    photo = new Date().getTime().toString();
+    photo = bcrypt.hashSync(photo, bcrypt.genSaltSync(bcryptSalt));
     cb(undefined, photo);
   }
 });
