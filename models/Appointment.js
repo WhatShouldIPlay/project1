@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
-
 const AppointmentSchema = new Schema({
-  date: String,
-  time: String,
+  date: Date,
+  date2: String,
   players:[{ type: Schema.Types.ObjectId, ref:'User'}],
   group: { type: Schema.Types.ObjectId, ref: 'Group'},
   game: { type: Schema.Types.ObjectId, ref: 'Game'}
