@@ -8,8 +8,8 @@ const userSchema = new Schema({
   age: Number,
   games: [{type: Schema.Types.ObjectId, ref:'Game'}],
   profilePic: {type: Schema.Types.ObjectId, ref:'Picture'},
-  groups: [{type: Schema.Types.ObjectId, ref:'Group'}]
-
+  groups: [{type: Schema.Types.ObjectId, ref:'Group'}],
+  googleID: String
 }, {
   timestamps: {
     createdAt: 'created_at',
