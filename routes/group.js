@@ -33,7 +33,6 @@ groupRoutes.get("/new", (req, res, next) => {
 
 groupRoutes.post("/new", upload.single("img"), (req, res, next) => {
   let { name, location, members, newMembers } = req.body;
-  console.log(req.body);
   if (name === "" || location === "") {
     res.render("group/new", { message: "Indicate Name and location" });
     return;
@@ -50,7 +49,6 @@ groupRoutes.post("/new", upload.single("img"), (req, res, next) => {
           .then(users => {
             const membersId = [];
             users.forEach(e => membersId.push(e._id));
-            console.log(req.file);
             const newPic = new Picture({
               filename: req.file.originalname,
               path: `/uploads/${req.file.filename}`
@@ -89,7 +87,6 @@ groupRoutes.get("/:id", (req, res, next) => {
     .populate("img")
     .populate("members")
     .then(group => {
-      console.log(group);
       res.render("group/group", { group });
     })
     .catch(err => {
@@ -125,46 +122,48 @@ groupRoutes.get("/:id/edit", (req, res, next) => {
 });
 
 // POST to update a group
-groupRoutes.post("/:id/edit", upload.single('img'), (req, res, next) => {
+groupRoutes.post("/:id/edit", upload.single("img"), (req, res, next) => {
+  const id = req.params.id;
   let { name, location, members, newMembers } = req.body;
-  console.log('REQUEST BODY', req.file);
-  Group.findById(req.params.id)
-    .then(group => {
-      if (name == "") name = group.name;
-      if (location == "") location = group.location;
-      if (members == "") members = group.members;
-      if (newMembers == "") newMembers = { newMembers: true };
+  const update = {
+    name,
+    location,
+    members,
+    newMembers
+  };
 
-      members = req.body.members.split(", ");
-      User.find({ username: { $in: members } })
-        .then(users => {
-          const membersId = [];
-          users.forEach(e => membersId.push(e._id));
-          console.log(req.file);
-          /*const newPic = new Picture({
-            filename: req.file.originalname,
-            path: `/uploads/${req.file.filename}`
-          });**/
-          Group.findByIdAndUpdate(req.params.id, {
-            name,
-            location,
-            members: membersId,
-            newMembers,
-            //img: newPic
+  if (!name) delete update.name;
+  if (!location) delete update.location;
+  if (!newMembers) delete update.newMembers;
+  if (!members) {
+    delete update.members;
+  } else {
+    members = req.body.members.split(", ");
+
+    User.find({ username: { $in: members } })
+      .then(users => {
+        const membersId = [];
+        users.forEach(e => membersId.push(e._id));
+        update.members = membersId;
+        Group.findByIdAndUpdate(id, update, { new: true })
+          .then(grp => {
+            res.redirect("/group/list");
+            return;
           })
-            .then(group => {
-              console.log(`Group ${group.name} succesfully updated`);
-              res.redirect("/group/list");
-            })
-            .catch(err => {
-              console.log(err.message);
-              next();
-            });
-        })
-        .catch(err => {
-          console.log(err);
-          res.render("group/list", { message: "Something went wrong" });
-        });
+          .catch(err => {
+            console.log(err);
+            next();
+          });
+      })
+      .catch(err => {
+        console.log(err.message);
+        next();
+      });
+  }
+  Group.findByIdAndUpdate(id, update, { new: true })
+    .then(() => {
+      res.redirect("/group/list");
+      return;
     })
     .catch(e => {
       console.log(e.message);

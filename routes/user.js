@@ -6,6 +6,8 @@ const axios = require('axios');
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
+
+
 // READ User
 
 userRoutes.get('/profile', (req,res,next)=>{
@@ -72,19 +74,28 @@ userRoutes.get('/profile/edit', (req, res, next)=>{
 });
 
 // POST to update one user
-userRoutes.post('/profile/edit', (req, res, next)=>{
-  console.log(req.body);
-  console.log('aqui entra')
-  let {username, password, email, age } = req.body;
-  if(username == '') username = req.user.username;
-  if(password == '') password = req.user.password;
-  if(email == '') email = req.user.email;
-  if(age == '') age = req.user.age;
-  const salt = bcrypt.genSaltSync(bcryptSalt);
-  const hashPass = bcrypt.hashSync(password, salt);
-  User.findByIdAndUpdate(req.user._id , { username, password: hashPass, email, age })
+
+userRoutes.post("/:id/edit", (req, res, next) => {
+  let { username, password, email, age } = req.body;
+  const update = {
+    username,
+    password,
+    email,
+    age,
+  };
+  
+  if (!username) delete update.username;
+  if (!password) {
+    delete update.password
+  } else {
+    const salt = bcrypt.genSaltSync(bcryptSalt);
+    const hashPass = bcrypt.hashSync(password, salt);
+  }
+  if (!email) delete update.email;
+  if (!age) delete update.age; 
+
+  User.findByIdAndUpdate(req.params.id , update)
       .then( user => {
-        console.log(`User ${user.username} succesfully updated`)
         res.redirect('/user/profile')
       })
       .catch(err=>{
@@ -92,6 +103,7 @@ userRoutes.post('/profile/edit', (req, res, next)=>{
         next();
       });
 });
+
 
 userRoutes.get('/profile/import', (req, res, next)=>{
   
