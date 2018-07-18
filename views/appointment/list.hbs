@@ -1,6 +1,23 @@
 <h1>Open Games list</h1>
+<div>
+  <a href="/appointment/new">Create a new Appointment</a>
+  <h2>OR</h2>
+</div>
+<div>
+  <form action="/appointment/search" method="post">
+  <h2>Find an open Game! </h2>
+  <label for="game">Game: </label>
+  <input type="text" name="game" id="game">
+  <label for="date">Date: </label>
+  <input type="date" name="date" id="date">
+  {{!-- <label for="time">Time: </label>
+  <input type="time" name="time" id="time"> --}}
+  <label for="group">Group: </label>
+  <input type="text" name="group" id="group">
+  </form>
+</div>
 {{#each appointment}}
-<a href="/appointment/{{_id}}/">{{date}}</a>
+<a href="/appointment/{{_id}}/">{{date2}}</a>
 <h2>{{group.name}}</h2>
 <h2>{{game.name}}</h2>
 {{/each}}

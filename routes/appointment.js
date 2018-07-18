@@ -4,7 +4,9 @@ const Appointment = require("../models/Appointment");
 const Game = require("../models/Game");
 const User = require("../models/User");
 const Group = require("../models/Group");
+const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
+const capitalizeString = (str)=>str.charAt(0).toUpperCase() + str.slice(1)
 // READ Appointments
 
 appointmentRoutes.get('/list', (req,res,next)=>{
@@ -13,6 +15,15 @@ appointmentRoutes.get('/list', (req,res,next)=>{
     .populate('group', 'name')
     .populate('game', 'name')
     .then(appointment=>{
+      appointment.forEach(e=>{
+        var event = new Date(e.date);
+        e.date2 = event.toLocaleDateString('es-ES', dateOptions)
+        e.date = "pepe"
+        console.log(e.date2);
+        // e.date = (new Date (e.date)).toLocaleDateString('es-ES', dateOptions);
+        // console.log(e.date);
+        // e.date = capitalizeString(e.date);   
+      })
       res.render('appointment/list', {appointment})
     })
     .catch(err=>{
@@ -24,22 +35,6 @@ appointmentRoutes.get('/list', (req,res,next)=>{
 appointmentRoutes.get('/new', (req, res, next)=>{
   res.render('appointment/new');
 })
-
-appointmentRoutes.get('/:id', (req, res, next)=>{
-  Appointment.findById(req.params.id)
-    .populate('players')
-    .populate('group', 'name')
-    .populate('game', 'name')
-    .then(appointment=>{
-      console.log(appointment);
-      res.render('appointment/appointment', {appointment});
-    })
-    .catch(err=>{
-      console.log(err.message);
-      next();
-    })
-})
-
 
 appointmentRoutes.post('/new', (req,res,next)=>{
   let { date, time, players, group, game } = req.body;
@@ -56,7 +51,7 @@ appointmentRoutes.post('/new', (req,res,next)=>{
     Game.find({name: game})
   ]).then(result=>{
     const newAppointment = new Appointment({
-      date,
+      date: new Date(date),
       time,
       players: result[0],
       group: result[1][0]._id,
@@ -75,6 +70,21 @@ appointmentRoutes.post('/new', (req,res,next)=>{
     console.log(e.message);
     next();
   });
+})
+
+appointmentRoutes.get('/:id', (req, res, next)=>{
+  Appointment.findById(req.params.id)
+    .populate('players')
+    .populate('group', 'name')
+    .populate('game', 'name')
+    .then(appointment=>{
+      console.log(appointment);
+      res.render('appointment/appointment', {appointment});
+    })
+    .catch(err=>{
+      console.log(err.message);
+      next();
+    })
 })
 
 appointmentRoutes. post('/:id/delete', (req, res, next)=>{
