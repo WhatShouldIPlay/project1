@@ -1,21 +1,30 @@
-<h2>{{user.username}} Profile</h2>
-<label for="name">Name: </label>
-<h3>{{user.username}}</h3>
-<label for="email">Email:</label>
-<h3>{{user.email}}</h3>
-<label for="age">Age: </label>
-<h3>{{user.age}}</h3>
-<img src="{{user.profilePic.path}}" alt="{{user.profilePic.filename}}" width="250px">
-<a href="/user/profile/edit">Edit</a>
-<form action="/user/profile/import" method="get">
-  <span>Import your games from your BGG profile</span>
-  <label for="importUsername">Username on BGG:</label>
-  <input type="text" name="importUsername">
-  <button>Import</button>
-</form>
-<form action="/user/profile/delete" method="POST">
-<a href="/group/list">Group List</a>
-<a href="/game">Game List</a>
-<a href="/game/user/{{user._id}}">My Game List</a>
-<button>Delete User</button>
+<div class="container">
+  <div id="title-container">
+    <h2>{{user.username}} Profile</h2>
+  </div>
+  <div id="data-img">
+    <div id="personal-data">
+      <label for="name">Name: </label>
+      <h3>{{user.username}}</h3>
+      <label for="email">Email:</label>
+      <h3>{{user.email}}</h3>
+      <label for="age">Age: </label>
+      <h3>{{user.age}}</h3>
+    </div>
+    <div id="img-container">
+      <img src="{{user.profilePic.path}}" alt="{{user.profilePic.filename}}" width="250px">
+    </div>
+  </div>
+  <a href="/user/profile/edit">Edit</a>
+  <form action="/user/profile/import" method="get" id="import">
+    <span>Import your games from your BGG profile</span>
+    <label for="importUsername">Username on BGG:</label>
+    <input type="text" name="importUsername">
+    <button>Import</button>
+  </form>
+  <form action="/user/profile/delete" method="POST">
+    <a href="/group/list">Group List</a>
+    <a href="/game/user/{{user._id}}">My Game List</a>
+    <button>Delete User</button>
+</div>
 </form>
