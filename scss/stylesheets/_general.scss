@@ -1,0 +1,19 @@
+body {
+  font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.btn{
+  border-radius: 8px;
+  border-style: none;
+  background-color: $green;
+  height: 4vh;
+  color: $white;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.btn:hover{
+  border-radius: 8px;
+  border-style: none;
+  background-color:  $light-green;
+}

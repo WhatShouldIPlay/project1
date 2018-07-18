@@ -1,11 +1,35 @@
-form label {
-  color: #01be43; }
-
-form input {
-  width: 30%; }
-
 body {
   font: 18px "Lucida Grande", Helvetica, Arial, sans-serif; }
+
+.btn {
+  border-radius: 8px;
+  border-style: none;
+  background-color: #019b0a;
+  height: 4vh;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem; }
+
+.btn:hover {
+  border-radius: 8px;
+  border-style: none;
+  background-color: #038f0d; }
+
+form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  form * {
+    width: 80%;
+    height: 3vh;
+    margin: 0.5vh; }
+  form input {
+    text-align: center;
+    max-width: 100%;
+    outline-color: #038f0d;
+    border-radius: 8px;
+    border-style: ridge; }
 
 a {
   text-decoration: none; }
@@ -40,8 +64,5 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center; }
-
-#fecha-guay {
-  color: pink; }
 
 /*# sourceMappingURL=style.css.map */

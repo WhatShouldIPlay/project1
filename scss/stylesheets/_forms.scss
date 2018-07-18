@@ -1,11 +1,19 @@
 form{
-
-  label{
-    color: $green;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  *{
+    width: 80%;
+    height: 3vh;
+    margin: 0.5vh;
   }
-
   input{
-    width: 30%;
+    text-align: center;
+    max-width: 100%;
+    outline-color: $light-green;
+    border-radius: 8px;
+    border-style: ridge;
   }
 }
 

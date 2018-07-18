@@ -18,13 +18,12 @@
   <a href="/user/profile/edit">Edit</a>
   <form action="/user/profile/import" method="get" id="import">
     <span>Import your games from your BGG profile</span>
-    <label for="importUsername">Username on BGG:</label>
-    <input type="text" name="importUsername">
-    <button>Import</button>
+    <input type="text" name="importUsername" placeholder="Insert your BGG username">
+    <button class="btn">Import</button>
   </form>
   <form action="/user/profile/delete" method="POST">
-    <a href="/group/list">Group List</a>
-    <a href="/game/user/{{user._id}}">My Game List</a>
-    <button>Delete User</button>
+    <a href="/group/list" class="btn">Group List</a>
+    <a href="/game/user/{{user._id}}" class="btn">My Game List</a>
+    <button class="btn">Delete User</button>
 </div>
 </form>
