@@ -16,7 +16,9 @@
   </form>
 </div>
 {{#each appointment}}
-<a href="/appointment/{{_id}}/">{{date2}}</a>
-<h2>{{group.name}}</h2>
+{{#fecha date}}
+{{this}}
+{{/fecha}}
+<a href="/appointment/{{_id}}/">{{group.name}}</a>
 <h2>{{game.name}}</h2>
 {{/each}}

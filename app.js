@@ -58,10 +58,12 @@ hbs.registerHelper('ifUndefined', (value, options) => {
       return options.fn(this);
   }
 });
-  
 
-// default value for title local
-
+hbs.registerHelper("fecha", (time) => {
+  time = new Date(time)
+  timeString = time.toLocaleString('es', { timeZone: 'UTC' });
+  return `<div>${timeString}</div>`
+})
 
 
 // Enable authentication using session + passport
