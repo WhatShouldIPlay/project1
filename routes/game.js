@@ -3,44 +3,46 @@ const gameRoutes = express.Router();
 const Game = require("../models/Game");
 const Picture = require("../models/Picture");
 const User = require("../models/User");
-const multer = require('multer');
+const multer = require("multer");
 const upload = multer({
-  dest: './uploads'
+  dest: "./uploads"
 });
 
 // READ Games
 
-gameRoutes.get('/', (req, res, next) => {
-  Game.find({}).populate('img')
+gameRoutes.get("/", (req, res, next) => {
+  Game.find({})
+    .populate("img")
     .then(game => {
-      res.render('game/list', {
-        game
-      })
-    })
-    .catch(err => {
-      console.log(err.message);
-      next();
-    })
-});
-
-gameRoutes.get('/:id', (req, res, next) => {
-  Game.findById(req.params.id).populate('img')
-    .then(game => {
-      res.render('game/game', {
+      res.render("game/list", {
         game
       });
     })
     .catch(err => {
       console.log(err.message);
       next();
-    })
+    });
 });
 
-gameRoutes.get('/new', upload.single('img'), (req, res, next) => {
-  res.render('game/new');
-})
+gameRoutes.get("/:id", (req, res, next) => {
+  Game.findById(req.params.id)
+    .populate("img")
+    .then(game => {
+      res.render("game/game", {
+        game
+      });
+    })
+    .catch(err => {
+      console.log(err.message);
+      next();
+    });
+});
 
-gameRoutes.post('/new', upload.single('img'), (req, res, next) => {
+gameRoutes.get("/new", upload.single("img"), (req, res, next) => {
+  res.render("game/new");
+});
+
+gameRoutes.post("/new", upload.single("img"), (req, res, next) => {
   console.log(req.file);
   const {
     name,
@@ -52,20 +54,21 @@ gameRoutes.post('/new', upload.single('img'), (req, res, next) => {
     maxAge,
     difficulty
   } = req.body;
-  if (name == '' ||
-    theme == '' ||
-    category == '' ||
-    minPlayers == '' ||
-    maxPlayers == '' ||
-    minAge == '' ||
-    maxAge == '' ||
-    difficulty == '') {
-    res.render('game/new', {
-      message: 'Every field is required'
-    })
+  if (
+    name == "" ||
+    theme == "" ||
+    category == "" ||
+    minPlayers == "" ||
+    maxPlayers == "" ||
+    minAge == "" ||
+    maxAge == "" ||
+    difficulty == ""
+  ) {
+    res.render("game/new", {
+      message: "Every field is required"
+    });
   }
 
-  
   const newPic = new Picture({
     filename: req.file.originalname,
     path: `/uploads/${req.file.filename}`
@@ -81,32 +84,30 @@ gameRoutes.post('/new', upload.single('img'), (req, res, next) => {
     difficulty,
     owner: req.user._id,
     img: newPic
-  })
+  });
 
-  newPic.save()
-    .then(() => {
-      newGame.save()
-        .then(() => {
-          res.redirect('/user/profile')
-        })
-    })
-})
+  newPic.save().then(() => {
+    newGame.save().then(() => {
+      res.redirect("/user/profile");
+    });
+  });
+});
 
-gameRoutes.post('/:id/delete', (req, res, next) => {
+gameRoutes.post("/:id/delete", (req, res, next) => {
   Game.findByIdAndRemove(req.params.id)
     .then(() => {
-      res.redirect('/user/profile');
+      res.redirect("/user/profile");
     })
     .catch(e => {
       console.log(e.message);
       next();
-    })
-})
+    });
+});
 
-gameRoutes.get('/:id/edit', (req, res, next) => {
+gameRoutes.get("/:id/edit", (req, res, next) => {
   Game.findById(req.params.id)
     .then(game => {
-      res.render('game/edit', {
+      res.render("game/edit", {
         game
       });
     })
@@ -114,7 +115,7 @@ gameRoutes.get('/:id/edit', (req, res, next) => {
       console.log(err.message);
       next();
     });
-})
+});
 
 gameRoutes.post("/:id/edit", (req, res, next) => {
   let {
@@ -136,8 +137,8 @@ gameRoutes.post("/:id/edit", (req, res, next) => {
     minAge,
     maxAge,
     difficulty
-  }
-  
+  };
+
   if (name == "") delete update.name;
   if (theme == "") delete update.theme;
   if (category == "") delete update.category;
@@ -157,19 +158,19 @@ gameRoutes.post("/:id/edit", (req, res, next) => {
     });
 });
 
-
-gameRoutes.get('/user/:id', (req, res, next)=>{
+gameRoutes.get("/user/:id", (req, res, next) => {
   User.findById(req.params.id)
-    .populate('games')
-  .then(game=>{
-    console.log(game)
-    res.render('game/list', {game});
-  })
-  .catch(err=>{
-    console.log(err.message);
-    next();
-  });
-})
-
+    .populate("games")
+    .then(game => {
+      console.log(game);
+      res.render("game/list", {
+        game: game.games
+      });
+    })
+    .catch(err => {
+      console.log(err.message);
+      next();
+    });
+});
 
 module.exports = gameRoutes;
