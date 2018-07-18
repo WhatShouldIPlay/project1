@@ -1,7 +1,7 @@
 <!-- views/auth/signup.hbs -->
 <h2>Edit</h2>
 
-<form action="/user/profile/edit" method="POST" id="form-container">
+<form action="/user/{{user._id}}/edit" method="POST" id="form-container">
   {{#if message }}
   <div class="error-message">{{ message }}</div>
   {{/if}}
