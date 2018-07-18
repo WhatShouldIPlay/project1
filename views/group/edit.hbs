@@ -1,7 +1,7 @@
 <!-- views/auth/signup.hbs -->
 <h2>Edit</h2>
 
-<form action="/group/{{group._id}}/edit" method="POST" id="form-container"> {{!-- enctype="multipart/form-data" --}}
+<form action="/group/{{group._id}}/edit" method="POST" id="form-container" enctype="multipart/form-data">
   {{#if message }}
   <div class="error-message">{{ message }}</div>
   {{/if}}
@@ -26,10 +26,10 @@
   <label for="newMembers">New Members</label>
   <input id="checkbox" type="checkbox" name="checkbox" placeholder="Accept new members?">
 
-  {{!-- <br>
+  <br>
   <br>
   <label for="img">Imagen</label>
-  <input id="img" type="file" name="img"> --}}
+  <input id="img" type="file" name="img">
 
   <br>
   <br>

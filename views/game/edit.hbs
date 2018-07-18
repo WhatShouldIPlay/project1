@@ -1,7 +1,7 @@
 <!-- views/auth/signup.hbs -->
 <h2>Edit Game</h2>
 
-<form action="/game/{{game._id}}/edit" method="POST" id="form-container">
+<form action="/game/{{game._id}}/edit" method="POST" id="form-container" enctype="multipart/form-data">
   {{#if message }}
   <div class="error-message">{{ message }}</div>
   {{/if}}
@@ -58,6 +58,11 @@
 
   <label for="difficulty">Difficulty</label>
   <input id="difficulty" type="number" step="0.01" name="difficulty" min="0" max="5" placeholder="From 0 to 5">
+
+  <br>
+  <br>
+  <label for="img">Game photo</label>
+  <input id="img" type="file" name="img">
 
   <br>
   <br>

@@ -1,7 +1,7 @@
 <!-- views/auth/signup.hbs -->
 <h2>Edit</h2>
 
-<form action="/user/{{user._id}}/edit" method="POST" id="form-container">
+<form action="/user/{{user._id}}/edit" method="POST" id="form-container" enctype="multipart/form-data"> 
   {{#if message }}
   <div class="error-message">{{ message }}</div>
   {{/if}}
@@ -28,10 +28,10 @@
 
   <br>
   <br>
-  {{!-- <label for="profilePic">Profile Picture</label>
+  <label for="profilePic">Profile Picture</label>
   <input id="profilePic" type="file" name="profilePic">
 
   <br>
-  <br> --}}
+  <br>
   <button>edit</button>
 </form>

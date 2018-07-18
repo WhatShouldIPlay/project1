@@ -133,6 +133,39 @@ appointmentRoutes.get('/:id/edit', (req, res, next) => {
     });
 })
 
+appointmentRoutes.post('/:id/edit', (req, res, next) => {
+  let {
+    date,
+    time,
+    players,
+    group,
+    game
+  } = req.body;
+  const update = {
+    date,
+    time,
+    players,
+    group,
+    game
+  }
+
+  if (date == "") delete update.date;
+  if (time == "") delete update.time;
+  if (players == "") delete update.players;
+  if (group == "") delete update.group;
+  if (game == "") delete update.game;
+
+
+  Appointment.findByIdAndUpdate(req.params.id, update)
+    .then(() => {
+      res.redirect("/appointment/list");
+    })
+    .catch(e => {
+      console.log(e.message);
+      next();
+    });
+});
+
 appointmentRoutes.post('/search', (req, res, next) => {
   let {
     game,
@@ -180,36 +213,4 @@ appointmentRoutes.post('/search', (req, res, next) => {
     })
 })
 
-appointmentRoutes.post('/:id/edit', (req, res, next) => {
-  let {
-    date,
-    time,
-    players,
-    group,
-    game
-  } = req.body;
-  const update = {
-    date,
-    time,
-    players,
-    group,
-    game
-  }
-
-  if (date == "") delete update.date;
-  if (time == "") delete update.time;
-  if (players == "") delete update.players;
-  if (group == "") delete update.group;
-  if (game == "") delete update.game;
-
-
-  Appointment.findByIdAndUpdate(req.params.id, update)
-    .then(() => {
-      res.redirect("/appointment/list");
-    })
-    .catch(e => {
-      console.log(e.message);
-      next();
-    });
-});
 module.exports = appointmentRoutes;

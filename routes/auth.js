@@ -6,7 +6,7 @@ const Picture = require("../models/Picture");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 const multer = require('multer');
-const upload = multer({dest: './uploads'});
+const upload = require("../cloudinaryConfig/cloudinary.js");
 
 
 authRoutes.get("/login", (req, res, next) => {
@@ -40,10 +40,9 @@ authRoutes.post("/signup", upload.single('profilePic'), (req, res, next) => {
 
     const salt = bcrypt.genSaltSync(bcryptSalt);
     const hashPass = bcrypt.hashSync(password, salt);
-    console.log(req)
     const newPic = new Picture({
       filename: req.file.originalname,
-      path: `/uploads/${req.file.filename}`
+      path: req.file.url
     })
   
     const newUser = new User({

@@ -4,9 +4,8 @@ const Group = require("../models/Group");
 const User = require("../models/User");
 const Picture = require("../models/Picture");
 const multer = require("multer");
-const upload = multer({ dest: "./public/uploads/" });
-const bcrypt = require("bcrypt");
-const bcryptSalt = 10;
+const upload = require("../cloudinaryConfig/cloudinary.js");
+
 
 // Read All Groups
 groupRoutes.get("/", (req, res, next) => {
@@ -135,6 +134,60 @@ groupRoutes.post("/:id/edit", upload.single("img"), (req, res, next) => {
   if (!name) delete update.name;
   if (!location) delete update.location;
   if (!newMembers) delete update.newMembers;
+
+  if(members && req.file){
+    members = req.body.members.split(", ");
+    const newPic = new Picture({
+      filename: req.file.originalname,
+      path: req.file.url
+    })
+    update.img = newPic;
+    Promise.all([
+      User.find({ username: { $in: members } }),
+      newPic.save()
+    ])
+      .then(result=>{
+        console.log(result);
+        const membersId = [];
+        result[0].forEach(e => membersId.push(e._id));
+        update.members = membersId;
+        Group.findByIdAndUpdate(id, update)
+        .then(() => {
+          res.redirect("/user/profile");
+          return
+        })
+        .catch(e => {
+          console.log(e.message);
+          next();
+        });
+      })
+      .catch(e=>{
+        console.log(e)
+        next();
+      })
+  } else if(req.file){
+    const newPic = new Picture({
+      filename: req.file.originalname,
+      path: req.file.url
+    })
+    update.img = newPic;
+    newPic.save()
+    .then(()=>{
+      Group.findByIdAndUpdate(req.params.id, update)
+        .then(() => {
+          res.redirect("/user/profile");
+          return
+        })
+        .catch(e => {
+          console.log(e.message);
+          next();
+        });
+    })
+    .catch(e => {
+      console.log(e.message);
+      next();
+    });
+  } 
   if (!members) {
     delete update.members;
   } else {
@@ -146,7 +199,7 @@ groupRoutes.post("/:id/edit", upload.single("img"), (req, res, next) => {
         users.forEach(e => membersId.push(e._id));
         update.members = membersId;
         Group.findByIdAndUpdate(id, update, { new: true })
-          .then(grp => {
+          .then(() => {
             res.redirect("/group/list");
             return;
           })
