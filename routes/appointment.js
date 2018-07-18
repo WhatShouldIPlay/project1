@@ -15,15 +15,12 @@ appointmentRoutes.get('/list', (req,res,next)=>{
     .populate('group', 'name')
     .populate('game', 'name')
     .then(appointment=>{
-      appointment.forEach(e=>{
-        var event = new Date(e.date);
-        e.date2 = event.toLocaleDateString('es-ES', dateOptions)
-        e.date = "pepe"
-        console.log(e.date2);
-        // e.date = (new Date (e.date)).toLocaleDateString('es-ES', dateOptions);
-        // console.log(e.date);
-        // e.date = capitalizeString(e.date);   
+      appointment.map(e=>{
+        let date2 = e.date.toString();
+        e['date2'] =date2.slice(0, date2.indexOf(':00 GMT'));
+        return e
       })
+      console.log(appointment)
       res.render('appointment/list', {appointment})
     })
     .catch(err=>{
@@ -57,6 +54,7 @@ appointmentRoutes.post('/new', (req,res,next)=>{
       group: result[1][0]._id,
       game: result[2][0]._id 
     })
+    console.log(newAppointment.date);
     newAppointment.save()
       .then(()=>{
         res.redirect('/appointment/list')
@@ -110,6 +108,27 @@ appointmentRoutes.get('/:id/edit', (req, res, next)=>{
     console.log(err.message);
     next();
   });
+})
+
+appointmentRoutes.post('/search', (req, res, next)=>{
+  let { game, date, group } = req.body;
+
+  Promise.all([
+    Group.findOne({name: group}).select('_id'),
+    Game.findOne({name: game}).select('_id')
+  ])
+    .then(result=>{
+      checkDate = new Date(date);
+      Appointment.find({$and: [{group: result[0]}, {game: result[1]}, {date: {$gte: checkDate}}]})
+        .then(app=>{
+          console.log(app)
+          res.render('appointment/list', {appointment: app})
+        })
+        .catch(e=>{
+          console.log(e.message);
+          next();
+        })
+    })
 })
 
 appointmentRoutes.post('/:id/edit', (req, res, next)=>{
