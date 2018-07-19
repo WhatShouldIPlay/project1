@@ -1,10 +1,23 @@
-<h1>Game List</h1>
+<div class="container">
+  <div class="row">
+    {{#each game}}
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{{img.path}}" alt="{{img.filename}}" width="100px" height="180px">
+      <div class="card-body">
+        <h5 class="card-title">{{name}}</h5>
+        <p class="card-text">Min players: {{minPlayers}}, Max Players: {{maxPlayers}}</p>
+        <a href="/game/{{_id}}" class="btn btn-primary">Go Detail</a>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
 
-{{#each game}}
+
+{{!--
 <div>
   <img src="{{img.path}}" alt="{{img.filename}}">
   <a href="/game/{{_id}}">{{name}}</a>
   <h3>Min players: {{minPlayers}}, Max Players: {{maxPlayers}}</h3>
   <h3>Theme: {{theme}} and Category: {{category}}</h3>
-</div>
-{{/each}}
+</div> --}}

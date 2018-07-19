@@ -168,17 +168,18 @@ userRoutes.get('/profile/import', (req, res, next)=>{
               })
               .catch(e=>{
                 console.log(e);
-                next();
+                res.render('/user/profile', {error: 'error'})
               })
           })
           .catch(e=>{
             console.log(e);
-            next();
+            res.render('/user/profile', {error: 'error'})
           })
       })
       .catch(e=>{
         console.log(e);
-        next();
+        const error='error'
+        res.render('/user/profile', {error})
       })
 })
 

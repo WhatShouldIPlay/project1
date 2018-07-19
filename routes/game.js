@@ -183,8 +183,9 @@ gameRoutes.get("/user/:id", (req, res, next) => {
   User.findById(req.params.id)
     .populate({path:'games', populate:{path: 'img'}})
     .then(game => {
-      res.render("game/list", {
-        game: game.games
+      res.render("game/myGames", {
+        game: game.games,
+        layout: false
       });
     })
     .catch(err => {
