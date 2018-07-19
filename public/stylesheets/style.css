@@ -34,6 +34,9 @@ section form {
   height: 50vh;
   margin: 0 auto; }
 
+section .title-login {
+  padding: 10vh; }
+
 section .button-color {
   background-color: #019b0a;
   margin-top: 2vh;
