@@ -54,14 +54,28 @@ nav {
   background-repeat: no-repeat;
   background-size: cover;
   height: 50vh;
-  display: flex;
-  justify-content: center;
-  align-items: center; }
+  background-position: 100%; }
   #header div {
-    text-align: center;
-    padding: 1vw; }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10vh; }
+    #header div div {
+      text-align: center;
+      padding: 1vw; }
+      #header div div img {
+        opacity: 0.6; }
+    #header div .title-index {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 30px;
+      color: rgba(255, 255, 255, 0.8); }
+      #header div .title-index h1 {
+        font-size: 3rem; }
 
 #icons {
+  margin-top: 4vh;
   background: white;
   height: 40vh;
   display: flex;
