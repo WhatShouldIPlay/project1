@@ -1,37 +1,37 @@
-<!-- views/auth/signup.hbs -->
-<h2>New Group</h2>
+<section>
+  <div class="title-container">
+    <h2>Create a new group</h2>
+  </div>
+  <form action="/group/{{group._id}}/new" method="POST" id="form-container" enctype="multipart/form-data">
+    {{#if message }}
+    <div class="error-message">{{ message }}</div>
+    {{/if}}
 
-<form action="/group/new" method="POST" id="form-container" enctype="multipart/form-data">
-  {{#if message }}
-  <div class="error-message">{{ message }}</div>
-  {{/if}}
+    <div class="form-group">
+      <label for="name">Group Name</label>
+      <input class="form-control" id="name" type="text" name="name" value="{{group.name}}">
+    </div>
 
-  <label for="name">Group Name</label>
-  <input id="name" type="text" name="name" placeholder="Group Name" required>
+    <div class="form-group">
+      <label for="location">Location</label>
+      <input class="form-control" id="location" type="text" name="location" value="{{group.location}}">
+    </div>
 
-  <br>
-  <br>
+    <div class="form-group">
+      <label for="members">Members</label>
+      <input class="form-control" id="members" type="text" name="members" value="{{#each group.members}}{{this.username}}, {{/each}}">
+    </div>
 
-  <label for="location">Location</label>
-  <input id="location" type="text" name="location" placeholder="Your location" required>
+    <div class="form-check">
+      <input class="form-check-input" id="checkbox" type="checkbox" name="checkbox" placeholder="Accept new members?">
+      <label for="newMembers">New Members</label>
+    </div>
 
-  <br>
-  <br>
+    <div class="form-group">
+      <label for="img">Imagen</label>
+      <input class="form-control" id="img" type="file" name="img">
+    </div>
 
-  <label for="members">Members</label>
-  <input id="members" type="text" name="members" placeholder="Members" required>
-
-  <br>
-  <br>
-  <label for="newMembers">New Members</label>
-  <input id="age" type="checkbox" name="checkbox" placeholder="Accept new members?" required>
-
-  <br>
-  <br>
-  <label for="img">Imagen</label>
-  <input id="img" type="file" name="img" required>
-
-  <br>
-  <br>
-  <button>edit</button>
-</form>
+    <button class="btn btn-success">Create</button>
+  </form>
+</section>

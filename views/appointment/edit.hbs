@@ -1,32 +1,33 @@
-<!-- views/auth/signup.hbs -->
-<h2>Edit Appointment</h2>
+<section>
+  <div class="title-container">
+    <h2>Edit Appointment</h2>
+  </div>
 
-<form action="/appointment/{{appointment._id}}/edit" method="POST" id="form-container">
-  {{#if message }}
-  <div class="error-message">{{ message }}</div>
-  {{/if}}
+  <form action="/appointment/{{appointment._id}}/edit" method="POST" id="form-container">
+    {{#if message }}
+    <div class="error-message">{{ message }}</div>
+    {{/if}}
 
-  <label for="date">Date:</label>
-  <input id="date" type="datetime-local" name="date">
+    <div class="form-group">
+      <label for="date">Date:</label>
+      <input class="form-control" id="date" type="datetime-local" name="date">
+    </div>
 
-  <br>
-  <br>
+    <div class="form-group">
+      <label for="players">Players: </label>
+      <input class="form-control" id="players" type="text" name="players" placeholder="Players for this game" value="{{#each appointment.players}}{{this.username}}, {{/each}}">
+    </div>
 
-  <label for="players">Players: </label>
-  <input id="players" type="text" name="players" placeholder="Players for this game" value="{{#each appointment.players}}{{this.username}}, {{/each}}">
+    <div class="form-group">
+      <label for="group">Group: </label>
+      <input class="form-control" id="group" type="text" name="text" value="{{appointment.group.name}}">
+    </div>
 
-  <br>
-  <br>
-  <label for="group">Group: </label>
-  <input id="group" type="text" name="text" value="{{appointment.group.name}}">
+    <div class="form-group">
+      <label for="game">Game: </label>
+      <input class="form-control" id="game" type="text" name="game" value="{{appointment.game.name}}">
+    </div>
 
-  <br>
-  <br>
-  <label for="game">Game: </label>
-  <input id="game" type="text" name="game" value="{{appointment.game.name}}">
-
-  <br>
-  <br>
-
-  <button>Edit</button>
-</form>
+    <button class="btn btn-success">Edit</button>
+  </form>
+</section>

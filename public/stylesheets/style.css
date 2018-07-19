@@ -19,8 +19,14 @@ h3 {
 label {
   font-size: 1.1rem; }
 
-.btn {
-  color: white; }
+.title-container {
+  position: relative;
+  margin: 2vh 0;
+  left: 45%;
+  display: inline-block; }
+
+.jumbotron {
+  margin-top: 4vh; }
 
 section .title-container {
   padding-top: 4vh;
@@ -164,5 +170,9 @@ iframe {
   align-items: center; }
   .flex-column .search-form {
     width: 40vw; }
+
+#members-group-list {
+  max-height: 300px;
+  overflow: scroll; }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,21 +1,22 @@
-<h2>Group</h2>
-<label for="name">Name: </label>
-<h3>{{group.name}}</h3>
-<label for="location">Location</label>
-<h3>{{group.location}}</h3>
-
-<label for="members">Members: </label>
-<ul>
-{{#each group.members}}
-<li>{{username}}</li>
-{{/each}}
-</ul>
-
-<label for="newMembers">New members </label>
-<h3>{{group.newMembers}}</h3>
-
-<img src="{{group.img.path}}" alt="{{group.img.filename}}">
-<a href="/group/{{group._id}}/edit">Edit</a>
-<form action="/group/{{group._id}}/delete" method="POST">
-  <button>Delete Group</button>
-</form>
+<div class="container">
+  <div class="jumbotron">
+    <div class="d-flex justify-content-between align-items-center"><h1 class="display-4">{{group.name}}</h1>
+    <img src="{{group.img.path}}" alt="{{group.img.filename}}" width="150px" height="150px"><br></div>
+    <label for="location">Location: </label>
+    <p class="lead">{{group.location}}</p>
+    <hr class="my-4">
+    <label for="list">Members: </label>
+    <ul class="list-group" id="members-group-list">
+      {{#each group.members}}
+      <li class="list-group-item">{{username}}</li>
+      {{/each}}
+    </ul>
+    <hr class="my-4">
+    <div class="lead d-flex justify-content-around align-items-center">
+      <a class="btn btn-primary" href="/group/{{group._id}}/edit" role="button">Edit this group</a>
+      <form action="/group/{{group._id}}/delete" method="POST">
+        <button class="btn btn-danger">Delete this group</button>
+      </form>
+    </div>
+  </div>
+</div>

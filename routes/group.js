@@ -111,6 +111,7 @@ groupRoutes.post("/:id/delete", (req, res, next) => {
 
 groupRoutes.get("/:id/edit", (req, res, next) => {
   Group.findById(req.params.id)
+    .populate('members')
     .then(group => {
       res.render("group/edit", { group });
     })
