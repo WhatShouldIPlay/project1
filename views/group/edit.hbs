@@ -1,37 +1,41 @@
 <!-- views/auth/signup.hbs -->
-<h2>Edit</h2>
+<section>
+  <div class="title-container">
+    <h2>Edit</h2>
+  </div>
 
-<form action="/group/{{group._id}}/edit" method="POST" id="form-container" enctype="multipart/form-data">
-  {{#if message }}
-  <div class="error-message">{{ message }}</div>
-  {{/if}}
+  <form action="/group/{{group._id}}/edit" method="POST" id="form-container" enctype="multipart/form-data">
+    {{#if message }}
+    <div class="error-message">{{ message }}</div>
+    {{/if}}
 
-  <label for="name">Group Name</label>
-  <input id="name" type="text" name="name" placeholder="{{group.name}}">
+    <div class="form-group">
+      <label for="exampleInputGroupName">Group Name</label>
+      <input type="text" class="form-control" name="name" id="name" placeholder="{{group.name}}">
+    </div>
 
-  <br>
-  <br>
+    <div class="form-group">
+      <label for="exampleInputLocation">Location</label>
+      <input type="text" class="form-control" id="location" name="location" placeholder="Your location">
+    </div>
 
-  <label for="location">Location</label>
-  <input id="location" type="text" name="location" placeholder="Your location">
+    <div class="form-group">
+      <label for="exampleInputMembers">Members</label>
+      <input type="text" class="form-control" id="members" name="members" placeholder="Members">
+    </div>
 
-  <br>
-  <br>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="checkbox" name="checkbox" placeholder="Accept new members?">
+      <label class="form-check-label" for="exampleCheck">New Members</label>
+    </div>
 
-  <label for="members">Members</label>
-  <input id="members" type="text" name="members" placeholder="Members">
+    <div class="form-group">
+      <label for="groupPic">Image</label>
+      <input class="form-control-file" id="img" type="file" name="img">
+    </div>
 
-  <br>
-  <br>
-  <label for="newMembers">New Members</label>
-  <input id="checkbox" type="checkbox" name="checkbox" placeholder="Accept new members?">
-
-  <br>
-  <br>
-  <label for="img">Imagen</label>
-  <input id="img" type="file" name="img">
-
-  <br>
-  <br>
-  <button>edit</button>
-</form>
+    <div>
+      <button type="submit" class="button-color btn btn-success">Edit</button>
+    </div>
+  </form>
+</section>
