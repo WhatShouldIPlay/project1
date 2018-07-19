@@ -4,14 +4,16 @@
   </div>
   <div class="row-game">
   <div class="game-info">
+  {{#unless game.isImported}}
   <h2>Category: {{game.category}}</h2>
   <h2>Theme: {{game.theme}}</h2>
-  <h3>Min Players: {{game.minPlayers}}</h3>
-  <h3>Max Players: {{game.maxPlayers}}</h3>
   <h3>Min Recommended Age: {{game.minRecommendedAge}}</h3>
   <h3>Max Recommended Age: {{game.maxRecommendedAge}}</h3>
   <h3>Difficulty: {{game.difficulty}}</h3>
-  <h3>Owner: {{game.owner}}</h3>
+  {{/unless}}
+  <h3>Min Players: {{game.minPlayers}}</h3>
+  <h3>Max Players: {{game.maxPlayers}}</h3>
+  <h3>Owners: {{#each game.owner}}{{this.username}} {{/each}}</h3>
   </div>
   <div class="img-container">
   <img src="{{game.img.path}}" alt="{{game.img.filename}}" class="img-thumbnail">

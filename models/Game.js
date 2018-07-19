@@ -13,7 +13,8 @@ const gameSchema = new Schema({
   maxRecomendedAge: Number,
   difficulty: {type: Number, min: 0, max: 5},
   img: {type: Schema.Types.ObjectId, ref:'Picture'},
-  owner: [{type: Schema.Types.ObjectId, ref: 'User'}]
+  owner: [{type: Schema.Types.ObjectId, ref: 'User'}],
+  isImported: Boolean
 }, {
   timestamps: {
     createdAt: 'created_at',

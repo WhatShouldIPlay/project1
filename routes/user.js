@@ -146,8 +146,12 @@ userRoutes.get('/profile/import', (req, res, next)=>{
             name: e.name,
             minPlayers: e.minPlayers,
             maxPlayers: e.maxPlayers,
-            owner: req.user._id,
-            img: newImage._id
+            minAge: 12,
+            maxAge: 99,
+            difficulty: 2.5,
+            owner: [req.user._id],
+            img: newImage._id,
+            isImported: true
           });
           dataResult.push(newGame);
           imageResult.push(newImage);
