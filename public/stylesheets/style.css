@@ -114,28 +114,43 @@ nav {
     flex-direction: column;
     align-items: center; }
 
-#data-img {
-  width: 60%;
-  display: flex;
-  justify-content: space-around; }
-  #data-img img {
-    border-radius: 50%; }
+#title-container {
+  display: inline-block;
+  position: relative;
+  left: 20%; }
 
 .profile-container {
-  width: 100%;
-  display: flex; }
-
-#img-container {
-  width: 150px;
-  height: 150px;
-  border: 1px solid black;
-  border-radius: 50%; }
-  #img-container img {
-    max-width: 100%;
-    max-height: 100%; }
+  margin-left: 10%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .profile-container .flex-column {
+    background-color: lightgrey;
+    width: 35%;
+    border-radius: 10px; }
+    .profile-container .flex-column #data-img {
+      margin: 10px;
+      display: flex; }
+    .profile-container .flex-column #form-container {
+      margin: 0 2vh; }
+      .profile-container .flex-column #form-container * {
+        margin: 1vh 0; }
+    .profile-container .flex-column #img-container {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      border: 1px solid black;
+      border-radius: 50%; }
+      .profile-container .flex-column #img-container img {
+        position: absolute;
+        left: 10%;
+        top: 10%;
+        max-width: 80%;
+        max-height: 80%; }
 
 iframe {
-  width: 80%;
+  width: 65%;
   height: 500px; }
 
 /*# sourceMappingURL=style.css.map */

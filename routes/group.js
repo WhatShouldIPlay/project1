@@ -50,7 +50,7 @@ groupRoutes.post("/new", upload.single("img"), (req, res, next) => {
             users.forEach(e => membersId.push(e._id));
             const newPic = new Picture({
               filename: req.file.originalname,
-              path: `/uploads/${req.file.filename}`
+              path: req.file.url
             });
 
             const newGroup = new Group({
