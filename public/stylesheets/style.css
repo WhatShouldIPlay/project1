@@ -31,6 +31,9 @@ form {
     border-radius: 8px;
     border-style: ridge; }
 
+body {
+  background-image: url("/public/images/jaciel-melnik-399287-unsplash.jpg"); }
+
 a {
   text-decoration: none; }
 
