@@ -75,6 +75,12 @@ nav {
     display: flex;
     width: 35%;
     justify-content: space-around; }
+    nav .auth2 a:hover {
+      background-color: #019b0a; }
+    nav .auth2 a {
+      text-decoration: none;
+      color: white;
+      padding: 9px; }
 
 #header {
   background-image: url("/images/jaciel-melnik-399287-unsplash.jpg");

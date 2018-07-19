@@ -1,37 +1,42 @@
 <!-- views/auth/signup.hbs -->
-<h2>Edit</h2>
+<section>
+  <div class="title-container">
+    <h2>Edit</h2>
+  </div>
 
-<form action="/user/{{user._id}}/edit" method="POST" id="form-container" enctype="multipart/form-data"> 
-  {{#if message }}
-  <div class="error-message">{{ message }}</div>
-  {{/if}}
+<form action="/user/{{user._id}}/edit" method="POST" id="form-container" enctype="multipart/form-data">
+    {{#if message }}
+    <div class="error-message">{{ message }}</div>
+    {{/if}}
 
-  <label for="username">Username</label>
-  <input id="username" type="text" name="username" placeholder="JohnDoe">
+ <div class="form-group">
+      <label for="exampleInputUser">Username</label>
+      <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
+    </div>
 
-  <br>
-  <br>
+    <div class="form-group">
+      <label for="exampleInputPassword">Password</label>
+      <input type="password" class="form-control" id="password" name="password" placeholder="Your password" required>
+    </div>
 
-  <label for="password">Password</label>
-  <input id="password" type="password" name="password" placeholder="Your password">
+    <div class="form-group">
+      <label for="exampleInputEmail">Email address</label>
+      <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" placeholder="Your email" required>
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
 
-  <br>
-  <br>
+    <div class="form-group">
+      <label for="exampleInputAge">Age</label>
+      <input type="text" class="form-control" id="age" name="age" placeholder="Your age" required>
+    </div>
 
-  <label for="email">Email</label>
-  <input id="email" type="email" name="email" placeholder="Your email">
+    <div class="form-group pic">
+      <label for="profilePic">Profile Picture</label>
+      <input class="form-control-file" id="profilePic" type="file" name="profilePic" required>
+    </div>
 
-  <br>
-  <br>
-  <label for="age">Age</label>
-  <input id="age" type="number" name="age" placeholder="Your age">
-
-  <br>
-  <br>
-  <label for="profilePic">Profile Picture</label>
-  <input id="profilePic" type="file" name="profilePic">
-
-  <br>
-  <br>
-  <button>edit</button>
+    <div>
+      <button type="submit" class="button-color btn btn-success">Edit</button>
+    </div>
 </form>
+</section>
