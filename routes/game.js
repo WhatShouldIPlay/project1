@@ -156,7 +156,7 @@ gameRoutes.post("/:id/edit", upload.single("img"), (req, res, next) => {
       .then(()=>{
         Game.findByIdAndUpdate(req.params.id, update)
           .then(() => {
-            res.redirect("/user/profile");
+            res.redirect("/game");
           })
           .catch(e => {
             console.log(e.message);
@@ -170,7 +170,7 @@ gameRoutes.post("/:id/edit", upload.single("img"), (req, res, next) => {
   } else {
     Game.findByIdAndUpdate(req.params.id, update)
           .then(() => {
-            res.redirect("/user/profile");
+            res.redirect("/game");
           })
           .catch(e => {
             console.log(e.message);

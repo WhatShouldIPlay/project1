@@ -196,6 +196,20 @@ iframe {
   max-height: 300px;
   overflow: scroll; }
 
+.container-list {
+  display: flex;
+  justify-content: center;
+  text-align: center; }
+
+.row-group {
+  margin-top: 20vh; }
+
+.row-group-game {
+  margin-top: 5vh; }
+
+.button-a-group {
+  margin-top: 3vh; }
+
 .game-container {
   background-color: lightgrey;
   margin-top: 4vh; }
