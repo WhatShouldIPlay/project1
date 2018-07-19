@@ -2,23 +2,25 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
   <script src="/javascripts/script.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.bundle.min.js" integrity="sha384-CS0nxkpPy+xUkNGhObAISrkg/xjb3USVCwy+0/NMzd5VxgY4CMCyTkItmy5n0voC" crossorigin="anonymous"></script>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.bundle.min.js" integrity="sha384-CS0nxkpPy+xUkNGhObAISrkg/xjb3USVCwy+0/NMzd5VxgY4CMCyTkItmy5n0voC"
+    crossorigin="anonymous"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+    crossorigin="anonymous">
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
-
-<div class="container">
-  <div class="row">
-    {{#each game}}
-    <div class="card">
-      <img class="card-img-top" src="{{img.path}}" alt="{{img.filename}}" width="100px" height="180px">
-      <div class="card-body">
-        <h5 class="card-title">{{name}}</h5>
-        <p class="card-text">Min players: {{minPlayers}}, Max Players: {{maxPlayers}}</p>
-        <a href="/game/{{_id}}" class="btn btn-primary">Go Detail</a>
+  <div class="container">
+    <div class="row">
+      {{#each game}}
+      <div class="card">
+        <img class="card-img-top" src="{{img.path}}" alt="{{img.filename}}" width="100px" height="180px">
+        <div class="card-body">
+          <h5 class="card-title">{{name}}</h5>
+          <p class="card-text">Min players: {{minPlayers}}, Max Players: {{maxPlayers}}</p>
+          <a href="/game/{{_id}}" class="btn btn-primary">Go Detail</a>
+        </div>
       </div>
+      {{/each}}
     </div>
-    {{/each}}
   </div>
-</div>
