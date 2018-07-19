@@ -1,14 +1,14 @@
-# Dependency directories
+
 node_modules/
 
-# Optional npm cache directory
+
 .npm
 
 
 .env.private
 
-# vscode config
+
 .vscode
 
-# uploads folder
+
 uploads

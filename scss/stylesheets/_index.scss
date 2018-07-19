@@ -1,3 +1,9 @@
+body {
+  margin: 0;
+  padding: 0;
+
+}
+
 a {
   text-decoration: none;
 }
@@ -18,7 +24,10 @@ nav {
 }
 
 #header {
-  height: 35vh;
+  background-image: url("/images/jaciel-melnik-399287-unsplash.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,6 +38,7 @@ nav {
 }
 
 #icons {
+  background: white;
   height: 40vh;
   display: flex;
   justify-content: center;
