@@ -164,22 +164,22 @@ userRoutes.get('/profile/import', (req, res, next)=>{
             User.findByIdAndUpdate(req.user._id, {games: gamesId}, {new:true})
               .then(games=>{
                 console.log(`Imported ${games.length} Games`)
-                res.redirect('/user/profile')
+                res.render('user/profile', {games, importOk: 'ok'})
               })
               .catch(e=>{
                 console.log(e);
-                res.render('/user/profile', {error: 'error'})
+                res.render('user/profile', {error: 'error'})
               })
           })
           .catch(e=>{
             console.log(e);
-            res.render('/user/profile', {error: 'error'})
+            res.render('user/profile', {error: 'error'})
           })
       })
       .catch(e=>{
         console.log(e);
         const error='error'
-        res.render('/user/profile', {error})
+        res.render('user/profile', {error})
       })
 })
 

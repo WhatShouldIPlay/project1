@@ -1,4 +1,5 @@
 const dotenv = require('dotenv')
+require('dotenv').load()
 
 dotenv.config();
 dotenv.config({path: __dirname + '/.env.private'});

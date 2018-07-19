@@ -7,23 +7,23 @@
   {{/if}}
 
   <label for="date">Date:</label>
-  <input id="date" type="datetime-local" name="date" value="{{appointment.date}}">
+  <input id="date" type="datetime-local" name="date">
 
   <br>
   <br>
 
   <label for="players">Players: </label>
-  <input id="players" type="text" name="players" placeholder="Players for this game">
+  <input id="players" type="text" name="players" placeholder="Players for this game" value="{{#each appointment.players}}{{this.username}}, {{/each}}">
 
   <br>
   <br>
   <label for="group">Group: </label>
-  <input id="group" type="text" name="text" placeholder="{{appointment.group}}">
+  <input id="group" type="text" name="text" value="{{appointment.group.name}}">
 
   <br>
   <br>
   <label for="game">Game: </label>
-  <input id="game" type="text" name="game" placeholder="{{appointment.game}}">
+  <input id="game" type="text" name="game" value="{{appointment.game.name}}">
 
   <br>
   <br>

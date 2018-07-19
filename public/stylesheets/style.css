@@ -7,6 +7,25 @@
 body {
   font: 18px "Hammersmith One", sans-serif; }
 
+h1 {
+  font-size: 2rem; }
+
+h2 {
+  font-size: 1.5rem; }
+
+h3 {
+  font-size: 1.25rem; }
+
+label {
+  font-size: 1.1rem; }
+
+.btn {
+  color: white; }
+
+body {
+  margin: 0;
+  padding: 0; }
+
 a {
   text-decoration: none; }
 
@@ -22,7 +41,10 @@ nav {
     justify-content: space-around; }
 
 #header {
-  height: 35vh;
+  background-image: url("/images/jaciel-melnik-399287-unsplash.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center; }
@@ -31,6 +53,7 @@ nav {
     padding: 1vw; }
 
 #icons {
+  background: white;
   height: 40vh;
   display: flex;
   justify-content: center;
@@ -54,6 +77,25 @@ nav {
     justify-content: space-between; }
     #profile-form #data-img img {
       border-radius: 60%; }
+#data-img {
+  width: 60%;
+  display: flex;
+  justify-content: space-around; }
+  #data-img img {
+    border-radius: 50%; }
+
+.profile-container {
+  width: 100%;
+  display: flex; }
+
+#img-container {
+  width: 150px;
+  height: 150px;
+  border: 1px solid black;
+  border-radius: 50%; }
+  #img-container img {
+    max-width: 100%;
+    max-height: 100%; }
 
 iframe {
   width: 80%;
