@@ -1,17 +1,27 @@
-<h1>{{game.name}}</h1>
-<img src="{{game.img.path}}" alt="{{game.img.filename}}">
-<h2>Category: {{game.category}}</h2>
-<h2>Theme: {{game.theme}}</h2>
-<h3>Min Players: {{game.minPlayers}}</h3>
-<h3>Max Players: {{game.maxPlayers}}</h3>
-<h3>Min Recommended Age: {{game.minRecommendedAge}}</h3>
-<h3>Max Recommended Age: {{game.maxRecommendedAge}}</h3>
-<h3>Difficulty: {{game.difficulty}}</h3>
-<h3>Owner: {{game.owner}}</h3>
-<br>
-
-<a href="/game/{{game._id}}/edit">Edit this game</a>
-<form action="/game/{{game._id}}/delete" method="post">
-  <br>
-  <button>Delete this game</button>
-</form>
+<div class="container game-container">
+  <div class="container-flow"><div class="title-container">
+  <h1>{{game.name}}</h1>
+  </div>
+  <div class="row-game">
+  <div class="game-info">
+  <h2>Category: {{game.category}}</h2>
+  <h2>Theme: {{game.theme}}</h2>
+  <h3>Min Players: {{game.minPlayers}}</h3>
+  <h3>Max Players: {{game.maxPlayers}}</h3>
+  <h3>Min Recommended Age: {{game.minRecommendedAge}}</h3>
+  <h3>Max Recommended Age: {{game.maxRecommendedAge}}</h3>
+  <h3>Difficulty: {{game.difficulty}}</h3>
+  <h3>Owner: {{game.owner}}</h3>
+  </div>
+  <div class="img-container">
+  <img src="{{game.img.path}}" alt="{{game.img.filename}}" class="img-thumbnail">
+  </div>
+  </div>
+  
+  <div class="game-buttons">
+  <a href="/game/{{game._id}}/edit" class="btn btn-success">Edit this game</a>
+  <form action="/game/{{game._id}}/delete" method="post">
+  <button class="btn btn-danger">Delete this game</button>
+  </form>
+  </div></div>
+</div>
