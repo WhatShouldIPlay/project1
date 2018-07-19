@@ -9,30 +9,32 @@
     {{/if}}
 
     <div class="form-group">
-      <label for="name">Group Name</label>
-      <input class="form-control" id="name" type="text" name="name" value="{{group.name}}">
+      <label for="exampleInputGroupName">Group Name</label>
+      <input type="text" class="form-control" name="name" id="name" placeholder="{{group.name}}">
     </div>
 
     <div class="form-group">
-      <label for="location">Location</label>
-      <input class="form-control" id="location" type="text" name="location" value="{{group.location}}">
+      <label for="exampleInputLocation">Location</label>
+      <input type="text" class="form-control" id="location" name="location" placeholder="Your location">
     </div>
 
     <div class="form-group">
-      <label for="members">Members</label>
-      <input class="form-control" id="members" type="text" name="members" value="{{#each group.members}}{{this.username}}, {{/each}}">
+      <label for="exampleInputMembers">Members</label>
+      <input type="text" class="form-control" id="members" name="members" placeholder="Members">
     </div>
 
-    <div class="form-check">
-      <input class="form-check-input" id="checkbox" type="checkbox" name="checkbox" placeholder="Accept new members?">
-      <label for="newMembers">New Members</label>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="checkbox" name="checkbox" placeholder="Accept new members?">
+      <label class="form-check-label" for="exampleCheck">New Members</label>
     </div>
 
     <div class="form-group">
-      <label for="img">Imagen</label>
-      <input class="form-control" id="img" type="file" name="img">
+      <label for="groupPic">Image</label>
+      <input class="form-control-file" id="img" type="file" name="img">
     </div>
 
-    <button class="btn btn-success">Edit</button>
+    <div>
+      <button type="submit" class="button-color btn btn-success">Edit</button>
+    </div>
   </form>
 </section>

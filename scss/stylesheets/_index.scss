@@ -44,6 +44,15 @@ nav {
     width: 35%;
     justify-content: space-around;
     
+    a:hover {
+      background-color: $green;
+    }
+
+    a {
+      text-decoration: none;
+      color: $white;
+      padding: 9px;
+    }
   }
 
 }
