@@ -7,50 +7,6 @@
 body {
   font: 18px "Hammersmith One", sans-serif; }
 
-.container {
-  margin: 0 auto; }
-
-a.btn {
-  display: flex;
-  justify-content: center;
-  align-items: center; }
-
-.btn {
-  border-radius: 8px;
-  border-style: none;
-  background-color: #019b0a;
-  height: 4vh;
-  color: white;
-  font-weight: bold;
-  font-size: 1rem;
-  text-align: center; }
-
-.btn:hover {
-  border-radius: 8px;
-  border-style: none;
-  background-color: #038f0d; }
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; }
-
-form {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center; }
-  form * {
-    width: 80%;
-    height: 3vh;
-    margin: 0.5vh; }
-  form input {
-    text-align: center;
-    max-width: 100%;
-    outline-color: #038f0d;
-    border-radius: 8px;
-    border-style: ridge; }
-
 a {
   text-decoration: none; }
 
@@ -85,12 +41,19 @@ nav {
     flex-direction: column;
     align-items: center; }
 
-#data-img {
-  width: 50%;
+.container-profile {
   display: flex;
-  justify-content: space-between; }
-  #data-img img {
-    border-radius: 50%; }
+  width: 100%; }
+
+#profile-form {
+  display: flex;
+  flex-direction: column;
+  width: 40%; }
+  #profile-form #data-img {
+    display: flex;
+    justify-content: space-between; }
+    #profile-form #data-img img {
+      border-radius: 60%; }
 
 iframe {
   width: 80%;

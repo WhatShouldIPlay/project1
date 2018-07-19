@@ -1,37 +1,39 @@
-<div class="container">
-  <div id="title-container">
-    <h2>{{user.username}} Profile</h2>
+<div id="title-container">
+  <h2>{{user.username}} Profile</h2>
+</div>
+<div class="container-profile">
+  <div id="profile-form">
+    <div id="data-img">
+      <div id="personal-data">
+        <label for="name">Name: </label>
+        <h3>{{user.username}}</h3>
+        <label for="email">Email:</label>
+        <h3>{{user.email}}</h3>
+        <label for="age">Age: </label>
+        <h3>{{user.age}}</h3>
+      </div>
+      <div id="img-container">
+        <img src="{{user.profilePic.path}}" alt="{{user.profilePic.filename}}" width="250px">
+      </div>
+    </div>
+    <a href="/user/profile/edit" class="btn" role="button">Edit</a>
+    <form action="/user/profile/import" method="get" id="import">
+      <span>Import your games from your BGG profile</span>
+      {{#if error}}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>ERROR</strong> Something went wrong with your request, try again in a few seconds.
+      </div>
+      {{/if}}
+      <input type="text" name="importUsername" placeholder="Insert your BGG username">
+      <button class="btn">Import</button>
+    </form>
+    <form action="/user/profile/delete" method="POST">
+      <button class="btn">Delete User</button>
+    </form>
   </div>
-  <div id="data-img">
-    <div id="personal-data">
-      <label for="name">Name: </label>
-      <h3>{{user.username}}</h3>
-      <label for="email">Email:</label>
-      <h3>{{user.email}}</h3>
-      <label for="age">Age: </label>
-      <h3>{{user.age}}</h3>
-    </div>
-    <div id="img-container">
-      <img src="{{user.profilePic.path}}" alt="{{user.profilePic.filename}}" width="250px">
-    </div>
-  </div>
-  <a href="/user/profile/edit" class="btn" role="button" >Edit</a>
-  <form action="/user/profile/import" method="get" id="import">
-    <span>Import your games from your BGG profile</span>
-    {{#if error}}
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <strong>ERROR</strong> Something went wrong with your request, try again in a few seconds.
-    </div>
-    {{/if}}
-    <input type="text" name="importUsername" placeholder="Insert your BGG username">
-    <button class="btn">Import</button>
-  </form>
-  <form action="/user/profile/delete" method="POST">
-    <button class="btn">Delete User</button>
-  </form>
   <iframe src="/game/user/{{user._id}}" frameborder="0"></iframe>
   <script src="/javascript/profile.js"></script>
 </div>
