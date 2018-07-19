@@ -1,74 +1,76 @@
 <!-- views/auth/signup.hbs -->
 <section>
-  
   <div class="title-container">
     <h2>Edit Game</h2>
   </div>
 
-<form action="/game/{{game._id}}/edit" method="POST" id="form-container" enctype="multipart/form-data">
-{{#if message }}
-<div class="error-message">{{ message }}</div>
-{{/if}}
+  <form action="/game/{{game._id}}/edit" method="POST" id="form-container" enctype="multipart/form-data">
+    {{#if message }}
+    <div class="error-message">{{ message }}</div>
+    {{/if}}
 
-<label for="name">Name</label>
-<input id="name" type="text" name="name" placeholder="{{game.name}}">
+    <div class="form-group">
+      <label for="exampleInputName">Name</label>
+      <input type="text" class="form-control" name="name" id="username" placeholder="{{game.name}}" required>
+    </div>
 
-<br>
-<br>
+    <label for="theme">Theme</label>
+    <select name="theme" id="theme">
+      <option value="Strategy" selected="selected">Strategy</option>
+      <option value="Card Game">Card Game</option>
+      <option value="Negotiation">Negotiation</option>
+      <option value="Economics">Economics</option>
+      <option value="Cooperative">Cooperative</option>
+      <option value="Worker Placement">Worker Placement</option>
+    </select>
 
-<label for="theme">Theme</label>
-<select name="theme" id="theme">
-<option value="Strategy" selected="selected">Strategy</option>
-<option value="Card Game">Card Game</option>
-<option value="Negotiation">Negotiation</option>
-<option value="Economics">Economics</option>
-<option value="Cooperative">Cooperative</option>
-<option value="Worker Placement">Worker Placement</option>
-</select>
+    <br>
+    <br>
 
-<br>
-<br>
+    <label for="category">Category</label>
+    <select name="category" id="category">
+      <option value="Eurogame" selected="selected">Eurogame</option>
+      <option value="Adventure Game">Adventure Game</option>
+      <option value="Family Game">Family Game</option>
+      <option value="Party Game">Party Game</option>
+    </select>
+    <br>
+    <br>
 
-<label for="category">Category</label>
-<select name="category" id="category">
-<option value="Eurogame" selected="selected">Eurogame</option>
-<option value="Adventure Game">Adventure Game</option>
-<option value="Family Game">Family Game</option>
-<option value="Party Game">Party Game</option>
-</select>
-<br>
-<br>
+    <div class="form-group">
+      <label for="minPlayers">Minimum number of players</label>
+      <input type="number" class="form-control" name="minPlayers" id="minPlayers" min="1" placeholder="1">
+    </div>
 
-<label for="minPlayers">Minimum number of players</label>
-<input id="minPlayers" type="number" name="minPlayers" min="1" placeholder="1">
+    <div class="form-group">
+      <label for="maxPlayers">Maximum number of players</label>
+      <input type="number" class="form-control" name="maxPlayers" id="maxPlayers" min="1" placeholder="12">
+    </div>
 
-<br>
-<br>
-<label for="maxPlayers">Maximum number of players</label>
-<input id="maxPlayers" type="number" name="maxPlayers" placeholder="12">
-<br>
-<br>
 
-<label for="minAge">Minimum recommended age for players</label>
-<input id="minAge" type="number" name="minAge" min="1" placeholder="5">
+    <div class="form-group">
+      <label for="minAge">Minimum recommended age for players</label>
+      <input type="number" class="form-control" name="minAge" id="minAge" min="1" placeholder="5">
+    </div>
 
-<br>
-<br>
-<label for="maxAge">Maximum recommended age for players</label>
-<input id="maxAge" type="number" name="maxAge" placeholder="99">
+    <div class="form-group">
+      <label for="maxAge">Maximum recommended age for players</label>
+      <input type="number" class="form-control" name="maxAge" id="maxAge" placeholder="99">
+    </div>
 
-<br>
-<br>
+    <div class="form-group">
+      <label for="difficulty">Difficulty</label>
+      <input type="number" class="form-control" name="difficulty" step="0.01" min="0" max="5" id="difficulty" placeholder="From 0 to 5">
+    </div>
 
-<label for="difficulty">Difficulty</label>
-<input id="difficulty" type="number" step="0.01" name="difficulty" min="0" max="5" placeholder="From 0 to 5">
+    <div class="form-group pic">
+      <label for="img">Game photo</label>
+      <input class="form-control-file" id="img" type="file" name="img">
+    </div>
 
-<br>
-<br>
-<label for="img">Game photo</label>
-<input id="img" type="file" name="img">
+    <div>
+      <button type="submit" class="button-color btn btn-success">Edit</button>
+    </div>
 
-<br>
-<br>
-<button>Edit</button>
-</form></section>
+  </form>
+</section>
