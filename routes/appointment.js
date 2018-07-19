@@ -123,6 +123,7 @@ appointmentRoutes.get('/:id/edit', (req, res, next) => {
     .populate('players', 'username')
     .populate('game', 'name')
     .then(appointment => {
+      console.log(appointment);
       res.render('appointment/edit', {
         appointment
       });
