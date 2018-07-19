@@ -1,15 +1,18 @@
-<h1>{{appointment.game.name}}</h1>
-
-<h2>{{appointment.date}}</h2>
-<h2>{{appointment.time}}</h2>
-<h2>{{appointment.group.name}}</h2>
-<ul>
+<div class="container"><div class="jumbotron">
+<h1 class="display-4">{{appointment.game.name}}</h1>
+<p class="lead">{{#fecha appointment.date}}{{this}}{{/fecha}}</p>
+<hr class="my-4">
+<p>{{appointment.group.name}}</p>
+<ul class="list-group">
 {{#each appointment.players}}
-  <li>{{username}}</li>
+<li class="list-group-item">{{username}}</li>
 {{/each}}
 </ul>
-
-<a href="/appointment/{{appointment._id}}/edit">Edit this appointment</a>
+<hr class="my-4">
+<p class="lead">
+<a class="btn btn-primary btn-lg" href="/appointment/{{appointment._id}}/edit" role="button">Edit this date</a>
 <form action="/appointment/{{appointment._id}}/delete" method="POST">
-<button>Delete this appointment</button>
+<button class="btn btn-danger">Delete this appointment</button>
 </form>
+</p>
+</div></div>

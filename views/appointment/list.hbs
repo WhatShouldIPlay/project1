@@ -1,24 +1,38 @@
-<h1>Open Games list</h1>
-<div>
-  <a href="/appointment/new">Create a new Appointment</a>
-  <h2>OR</h2>
+<h1 id="appointment-title">Open Games list</h1>
+<div class="container">
+  <div class="flex-column">
+    <a href="/appointment/new" class="btn btn-primary">Create a new Appointment</a>
+    <h2>OR</h2>
+    <div>
+      <h2>Find an open Game! </h2>
+      <form action="/appointment/search" method="post" class="search-form">
+        <div class="form-group">
+          <label for="game">Game: </label>
+          <input class="form-control" type="text" name="game" id="game">
+        </div>
+        <div class="form-group">
+          <label for="date">Date: </label>
+          <input class="form-control" type="datetime-local" name="date" id="date">
+        </div>
+        <div class="form-group">
+          <label for="group">Group: </label>
+          <input class="form-control" type="text" name="group" id="group">
+        </div>
+        <div>
+          <button class="btn btn-success button-color">Find!</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    {{#each appointment}}
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{game.name}}</h5>
+        {{#fecha date}}{{this}}{{/fecha}}
+        <a href="/appointment/{{_id}}/" class="card-link">{{group.name}}</a>
+      </div>
+    </div>
+    {{/each}}
+  </div>
 </div>
-<div>
-  <form action="/appointment/search" method="post">
-  <h2>Find an open Game! </h2>
-  <label for="game">Game: </label>
-  <input type="text" name="game" id="game">
-  <label for="date">Date: </label>
-  <input type="datetime-local" name="date" id="date">
-  <label for="group">Group: </label>
-  <input type="text" name="group" id="group">
-  <button>Find!</button>
-  </form>
-</div>
-{{#each appointment}}
-{{#fecha date}}
-{{this}}
-{{/fecha}}
-<a href="/appointment/{{_id}}/">{{group.name}}</a>
-<h2>{{game.name}}</h2>
-{{/each}}

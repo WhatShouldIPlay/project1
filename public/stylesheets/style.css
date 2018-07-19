@@ -19,9 +19,6 @@ h3 {
 label {
   font-size: 1.1rem; }
 
-.btn {
-  color: white; }
-
 body {
   margin: 0;
   padding: 0; }
@@ -102,5 +99,17 @@ nav {
 iframe {
   width: 65%;
   height: 500px; }
+
+#appointment-title {
+  display: inline-block;
+  position: relative;
+  left: 41%; }
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .flex-column .search-form {
+    width: 40vw; }
 
 /*# sourceMappingURL=style.css.map */
