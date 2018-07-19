@@ -9,6 +9,16 @@
   left: 16%;
   display: inline-block; }
 
+.list-appointment {
+  margin-top: 9vh; }
+
+.h2-listappointment {
+  text-align: center;
+  margin-top: 2vh; }
+
+.button-appoint {
+  margin-top: 3vh; }
+
 body {
   font: 18px "Hammersmith One", sans-serif; }
 
