@@ -65,7 +65,7 @@ hbs.registerHelper('ifUndefined', (value, options) => {
 hbs.registerHelper("fecha", (time) => {
   time = new Date(time)
   timeString = time.toLocaleString('es', { timeZone: 'UTC' });
-  return `<div>${timeString}</div>`
+  return `<h6 class="card-subtitle mb-2 text-muted">${timeString}</h6>`
 })
 
 
