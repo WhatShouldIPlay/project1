@@ -1,26 +1,35 @@
+<section id="login">
+  <div class="title-login">
+    <div class="title-container">
+      <h2>Log in</h2>
+    </div>
 
-<h2>Login</h2>
+    <form class="form-login" action="/auth/login" method="POST" id="form-container" enctype="multipart/form-data">
+      {{#if message }}
+      <div class="error-message">{{ message }}</div>
+      {{/if}}
 
-<form action="/auth/login" method="POST" id="form-container">
-  <label for="username">Username</label>
-  <input id="username" type="text" name="username" placeholder="JonSnow">
+      <div class="form-group">
+        <label for="exampleInputUser">Username</label>
+        <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
+      </div>
 
-  <br><br>
+      <div class="form-group">
+        <label for="exampleInputPassword">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Your password" required>
+      </div>
 
-  <label for="password">Password</label>
-  <input id="password" type="password" name="password" placeholder="Your password">
-  <br>
-  {{#if message }}
-    <div class="error-message">{{ message }}</div>
-  {{/if}}
+      <div>
+        <button type="submit" class="button-color btn btn-success">Login</button>
+      </div>
 
-  <br><br>
-
-  <button>Login</button>
-
-  <p class="account-message">
-    Don't have an account yet?
-    <a href="/auth/signup">Signup</a>
-  <p>Log in with <a href="/auth/google"> Google+</a></p>
-  </p>
-</form>
+      <p class="account-message">
+        Do you already have an account?
+        <a href="/auth/signup">Signup</a>
+        <p>Log in with
+          <a href="/auth/google"> Google+</a>
+        </p>
+      </p>
+    </form>
+  </div>
+</section>
