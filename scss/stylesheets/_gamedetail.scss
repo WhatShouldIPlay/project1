@@ -1,0 +1,31 @@
+.game-container {
+  background-color: lightgrey;
+  margin-top: 4vh;
+  .row-game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .game-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .img-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      img {
+        position: absolute;
+        left: 10%;
+        top: 10%;
+        max-width: 80%;
+        max-height: 80%;
+      }
+    }
+  }
+  .game-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 4vh;
+  }
+}

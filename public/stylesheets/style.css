@@ -4,6 +4,11 @@
   background-color: lightgrey;
   width: 12rem; }
 
+.list-container {
+  position: relative;
+  left: 16%;
+  display: inline-block; }
+
 body {
   font: 18px "Hammersmith One", sans-serif; }
 
@@ -180,5 +185,31 @@ iframe {
 #members-group-list {
   max-height: 300px;
   overflow: scroll; }
+
+.game-container {
+  background-color: lightgrey;
+  margin-top: 4vh; }
+  .game-container .row-game {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .game-container .row-game .game-info {
+      display: flex;
+      flex-direction: column; }
+    .game-container .row-game .img-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%; }
+      .game-container .row-game .img-container img {
+        position: absolute;
+        left: 10%;
+        top: 10%;
+        max-width: 80%;
+        max-height: 80%; }
+  .game-container .game-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 4vh; }
 
 /*# sourceMappingURL=style.css.map */

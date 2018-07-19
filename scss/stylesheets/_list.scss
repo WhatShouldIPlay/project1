@@ -1,5 +1,11 @@
-.card{
+.card {
   margin: 1vh;
   background-color: lightgrey;
   width: 12rem;
+}
+
+.list-container {
+  position: relative;
+  left: 16%;
+  display: inline-block;
 }
