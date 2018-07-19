@@ -15,8 +15,11 @@
 
 <body>
   <nav>
+    <div>
+      <img src="/images/logo.png" alt="logo" width="50px">
+    </div>
     {{#if user}}
-    <div class="auth">
+    <div class="auth2">
       <a href="/user/profile">Profile</a>
       <a href="/group/list">Groups</a>
       <a href="/group/list">Games</a>
@@ -24,7 +27,7 @@
       <a href="/auth/logout">Log out</a>
     </div>
     {{/if}} {{#unless user}}
-    <div class="auth">
+    <div class="auth1">
       <a href="/auth/signup">Sign Up</a>
       <a href="/auth/login">Log in</a>
     </div>

@@ -1,19 +1,28 @@
-// form{
-//   width: 50%;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   *{
-//     width: 80%;
-//     height: 3vh;
-//     margin: 0.5vh;
-//   }
-//   input{
-//     text-align: center;
-//     max-width: 100%;
-//     outline-color: $light-green;
-//     border-radius: 8px;
-//     border-style: ridge;
-//   }
-// }
+section {
+
+  .title-container{
+    padding-top: 4vh;
+    height: 10vh;
+    width: 40vw;
+    margin: 0 auto;
+    font-size: 2rem;
+  }
+
+  form {
+    width: 40vw;
+    height: 50vh;
+    margin: 0 auto;
+  }
+
+  .button-color {
+    background-color: $green;
+    margin-top: 2vh;
+    margin-bottom: 4vh;
+  }
+
+  
+
+}
+
+
 
