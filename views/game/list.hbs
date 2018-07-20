@@ -1,5 +1,8 @@
 <div class="container list-container">
-  <div class="row-group-game row">
+  <div class="title-container">
+    <h1>Check our games</h1>
+  </div>
+  <div class="row">
     {{#each game}}
     <div class="card" style="width: 18rem;">
       <img class="card-img-top" src="{{img.path}}" alt="{{img.filename}}" width="100px" height="180px">
@@ -12,12 +15,3 @@
     {{/each}}
   </div>
 </div>
-
-
-{{!--
-<div>
-  <img src="{{img.path}}" alt="{{img.filename}}">
-  <a href="/game/{{_id}}">{{name}}</a>
-  <h3>Min players: {{minPlayers}}, Max Players: {{maxPlayers}}</h3>
-  <h3>Theme: {{theme}} and Category: {{category}}</h3>
-</div> --}}

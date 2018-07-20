@@ -25,6 +25,7 @@ gameRoutes.get("/", (req, res, next) => {
 gameRoutes.get("/:id", (req, res, next) => {
   Game.findById(req.params.id)
     .populate("img")
+    .populate('owner')
     .then(game => {
       res.render("game/game", {
         game
@@ -134,7 +135,8 @@ gameRoutes.post("/:id/edit", upload.single("img"), (req, res, next) => {
     maxPlayers,
     minAge,
     maxAge,
-    difficulty
+    difficulty,
+    isImported: false
   };
 
   if (name == "") delete update.name;
@@ -145,7 +147,6 @@ gameRoutes.post("/:id/edit", upload.single("img"), (req, res, next) => {
   if (minAge == "") delete update.difficulty;
   if (maxAge == "") delete update.difficulty;
   if (difficulty == "") delete update.difficulty;
-  console.log(req.file);
   if (req.file){
     const newPic = new Picture({
       filename: req.file.originalname,
@@ -154,9 +155,16 @@ gameRoutes.post("/:id/edit", upload.single("img"), (req, res, next) => {
     update.img = newPic;
     newPic.save()
       .then(()=>{
+<<<<<<< HEAD
         Game.findByIdAndUpdate(req.params.id, update)
           .then(() => {
             res.redirect("/game");
+=======
+        Game.findByIdAndUpdate(req.params.id, update, {new:true})
+          .then(game => {
+            console.log(game)
+            res.redirect("/user/profile");
+>>>>>>> 68870715ec31647462cc9aeaa88e7f624b6c3e68
           })
           .catch(e => {
             console.log(e.message);
