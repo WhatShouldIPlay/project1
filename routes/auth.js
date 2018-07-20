@@ -10,22 +10,22 @@ const upload = require("../cloudinaryConfig/cloudinary.js");
 const { ensureLoggedIn, ensureLoggedOut } = require('connect-ensure-login');
 
 
-authRoutes.get("/login", ensureLoggedOut('/auth/login'), (req, res, next) => {
+authRoutes.get("/login", ensureLoggedOut('/'), (req, res, next) => {
   res.render("auth/login", { "message": req.flash("error") });
 });
 
-authRoutes.post("/login", ensureLoggedOut('/auth/login'), passport.authenticate("local", {
+authRoutes.post("/login", ensureLoggedOut('/'), passport.authenticate("local", {
   successRedirect: "/user/profile",
   failureRedirect: "/auth/login",
   failureFlash: true,
   passReqToCallback: true
 }));
 
-authRoutes.get("/signup", ensureLoggedOut('/auth/signup'), (req, res, next) => {
+authRoutes.get("/signup", ensureLoggedOut('/'), (req, res, next) => {
   res.render("auth/signup");
 });
 
-authRoutes.post("/signup", ensureLoggedOut('/auth/signup'), upload.single('profilePic'), (req, res, next) => {
+authRoutes.post("/signup", ensureLoggedOut('/'), upload.single('profilePic'), (req, res, next) => {
   const {username, password, email, age } = req.body;
   
   if (username === "" || password === "") {
