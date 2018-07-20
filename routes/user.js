@@ -144,6 +144,8 @@ userRoutes.get('/profile/import', (req, res, next)=>{
           })
           newGame = new Game({
             name: e.name,
+            theme: 'Strategy',
+            category: 'Eurogame',
             minPlayers: e.minPlayers,
             maxPlayers: e.maxPlayers,
             minAge: 12,
@@ -156,8 +158,6 @@ userRoutes.get('/profile/import', (req, res, next)=>{
           dataResult.push(newGame);
           imageResult.push(newImage);
         });
-        console.log(dataResult[0]);
-        console.log(imageResult[0])
         Promise.all([
           Game.create(dataResult),
           Picture.create(imageResult)
