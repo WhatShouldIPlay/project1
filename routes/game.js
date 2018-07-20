@@ -5,10 +5,10 @@ const Picture = require("../models/Picture");
 const User = require("../models/User");
 const multer = require('multer');
 const upload = require("../cloudinaryConfig/cloudinary.js");
-
+const { ensureLoggedIn } = require('connect-ensure-login')
 // READ Games
 
-gameRoutes.get("/", (req, res, next) => {
+gameRoutes.get("/", ensureLoggedIn('/auth/login'), (req, res, next) => {
   Game.find({})
     .populate("img")
     .then(game => {
@@ -22,7 +22,7 @@ gameRoutes.get("/", (req, res, next) => {
     });
 });
 
-gameRoutes.get("/:id", (req, res, next) => {
+gameRoutes.get("/:id", ensureLoggedIn('/auth/login'), (req, res, next) => {
   Game.findById(req.params.id)
     .populate("img")
     .populate('owner')
@@ -37,11 +37,11 @@ gameRoutes.get("/:id", (req, res, next) => {
     });
 });
 
-gameRoutes.get("/new", (req, res, next) => {
+gameRoutes.get("/new", ensureLoggedIn('/auth/login'), (req, res, next) => {
   res.render("game/new");
 });
 
-gameRoutes.post("/new", upload.single("img"), (req, res, next) => {
+gameRoutes.post("/new", ensureLoggedIn('/auth/login'), upload.single("img"), (req, res, next) => {
   const {
     name,
     theme,
@@ -91,7 +91,7 @@ gameRoutes.post("/new", upload.single("img"), (req, res, next) => {
   });
 });
 
-gameRoutes.post("/:id/delete", (req, res, next) => {
+gameRoutes.post("/:id/delete", ensureLoggedIn('/auth/login'), (req, res, next) => {
   Game.findByIdAndRemove(req.params.id)
     .then(() => {
       res.redirect("/user/profile");
@@ -102,7 +102,7 @@ gameRoutes.post("/:id/delete", (req, res, next) => {
     });
 });
 
-gameRoutes.get("/:id/edit", (req, res, next) => {
+gameRoutes.get("/:id/edit", ensureLoggedIn('/auth/login'), (req, res, next) => {
   Game.findById(req.params.id)
     .then(game => {
       res.render("game/edit", {
@@ -115,7 +115,7 @@ gameRoutes.get("/:id/edit", (req, res, next) => {
     });
 });
 
-gameRoutes.post("/:id/edit", upload.single("img"), (req, res, next) => {
+gameRoutes.post("/:id/edit", ensureLoggedIn('/auth/login'), upload.single("img"), (req, res, next) => {
   let {
     name,
     theme,
@@ -182,7 +182,7 @@ gameRoutes.post("/:id/edit", upload.single("img"), (req, res, next) => {
   }
 });
 
-gameRoutes.get("/user/:id", (req, res, next) => {
+gameRoutes.get("/user/:id", ensureLoggedIn('/auth/login'), (req, res, next) => {
   User.findById(req.params.id)
     .populate({path:'games', populate:{path: 'img'}})
     .then(game => {

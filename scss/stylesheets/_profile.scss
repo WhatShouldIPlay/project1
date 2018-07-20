@@ -25,8 +25,11 @@
     grid-column-end: 2;
     display: grid;
     align-items: center;
-    grid-template-columns: auto 125px;
+    grid-template-columns: 60% 40%;
     grid-template-rows: auto auto;
+    overflow-wrap: break-word;
+    background-color: lightgrey;
+    border-radius: 10px;
     #sub-grid2 {
       img {
         border-radius: 50%;

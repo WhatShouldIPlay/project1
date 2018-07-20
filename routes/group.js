@@ -5,14 +5,14 @@ const User = require("../models/User");
 const Picture = require("../models/Picture");
 const multer = require("multer");
 const upload = require("../cloudinaryConfig/cloudinary.js");
-
+const {ensureLoggedIn} = require('connect-ensure-login');
 
 // Read All Groups
-groupRoutes.get("/", (req, res, next) => {
+groupRoutes.get("/", ensureLoggedIn('/auth/login'), (req, res, next) => {
   res.redirect("/group/list");
 });
 
-groupRoutes.get("/list", (req, res, next) => {
+groupRoutes.get("/list", ensureLoggedIn('/auth/login'), (req, res, next) => {
   Group.find({})
     .populate("img")
     .then(groups => {
@@ -26,11 +26,11 @@ groupRoutes.get("/list", (req, res, next) => {
 
 // Create group
 
-groupRoutes.get("/new", (req, res, next) => {
+groupRoutes.get("/new", ensureLoggedIn('/auth/login'), (req, res, next) => {
   res.render("group/new");
 });
 
-groupRoutes.post("/new", upload.single("img"), (req, res, next) => {
+groupRoutes.post("/new", ensureLoggedIn('/auth/login'), upload.single("img"), (req, res, next) => {
   let { name, location, members, newMembers } = req.body;
   if (name === "" || location === "") {
     res.render("group/new", { message: "Indicate Name and location" });
@@ -81,7 +81,7 @@ groupRoutes.post("/new", upload.single("img"), (req, res, next) => {
 
 // Read group by Id
 
-groupRoutes.get("/:id", (req, res, next) => {
+groupRoutes.get("/:id", ensureLoggedIn('/auth/login'), (req, res, next) => {
   Group.findById(req.params.id)
     .populate("img")
     .populate("members")
@@ -96,7 +96,7 @@ groupRoutes.get("/:id", (req, res, next) => {
 
 // Delete a group
 
-groupRoutes.post("/:id/delete", (req, res, next) => {
+groupRoutes.post("/:id/delete", ensureLoggedIn('/auth/login'), (req, res, next) => {
   Group.findByIdAndRemove(req.params.id)
     .then(() => {
       res.redirect("/group/list");
@@ -109,7 +109,7 @@ groupRoutes.post("/:id/delete", (req, res, next) => {
 
 // GET page to update a group
 
-groupRoutes.get("/:id/edit", (req, res, next) => {
+groupRoutes.get("/:id/edit", ensureLoggedIn('/auth/login'), (req, res, next) => {
   Group.findById(req.params.id)
     .populate('members')
     .then(group => {
@@ -122,7 +122,7 @@ groupRoutes.get("/:id/edit", (req, res, next) => {
 });
 
 // POST to update a group
-groupRoutes.post("/:id/edit", upload.single("img"), (req, res, next) => {
+groupRoutes.post("/:id/edit", ensureLoggedIn('/auth/login'), upload.single("img"), (req, res, next) => {
   const id = req.params.id;
   let { name, location, members, newMembers } = req.body;
   const update = {
