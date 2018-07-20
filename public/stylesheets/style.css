@@ -40,6 +40,12 @@ label {
   left: 45%;
   display: inline-block; }
 
+.title-container-game {
+  position: relative;
+  margin: 2vh 0;
+  left: 32%;
+  display: inline-block; }
+
 .jumbotron {
   margin-top: 4vh; }
 
