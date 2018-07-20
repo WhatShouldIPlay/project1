@@ -1,29 +1,31 @@
-<div class="container game-container">
-  <div class="container-flow"><div class="title-container">
-  <h1>{{game.name}}</h1>
+<div class="game-grid">
+  <div class="grid-header">
+    <h1>{{game.name}}</h1>
   </div>
-  <div class="row-game">
-  <div class="game-info">
-  {{#unless game.isImported}}
-  <h2>Category: {{game.category}}</h2>
-  <h2>Theme: {{game.theme}}</h2>
-  <h3>Min Recommended Age: {{game.minRecommendedAge}}</h3>
-  <h3>Max Recommended Age: {{game.maxRecommendedAge}}</h3>
-  <h3>Difficulty: {{game.difficulty}}</h3>
-  {{/unless}}
-  <h3>Min Players: {{game.minPlayers}}</h3>
-  <h3>Max Players: {{game.maxPlayers}}</h3>
-  <h3>Owners: {{#each game.owner}}{{this.username}} {{/each}}</h3>
+
+  <div class="grid-column1">
+    <h3>Min Players: {{game.minPlayers}}</h3>
+    <h3>Max Players: {{game.maxPlayers}}</h3>
+    <h3>Owners: {{#each game.owner}}{{this.username}} {{/each}}</h3>
   </div>
-  <div class="img-container">
-  <img src="{{game.img.path}}" alt="{{game.img.filename}}" class="img-thumbnail">
+  <div class="grid-column1-row2">
+    {{#unless game.isImported}}
+    <h2>Category: {{game.category}}</h2>
+    <h2>Theme: {{game.theme}}</h2>
   </div>
+    <div class="grid-column1-row3">
+    <h3>Difficulty: {{game.difficulty}}</h3>
+    <h3>Min Recommended Age: {{game.minRecommendedAge}}</h3>
+    <h3>Max Recommended Age: {{game.maxRecommendedAge}}</h3>
+    {{/unless}}
   </div>
-  
-  <div class="game-buttons">
-  <a href="/game/{{game._id}}/edit" class="btn btn-success">Edit this game</a>
-  <form action="/game/{{game._id}}/delete" method="post">
-  <button class="btn btn-danger">Delete this game</button>
-  </form>
-  </div></div>
+  <div class="grid-column-2">
+    <img src="{{game.img.path}}" alt="{{game.img.filename}}" class="img-thumbnail">
+  </div>
+  <div class="grid-bottom">
+    <a href="/game/{{game._id}}/edit" class="btn btn-success">Edit this game</a>
+    <form action="/game/{{game._id}}/delete" method="post">
+      <button class="btn btn-danger">Delete this game</button>
+    </form>
+  </div>
 </div>

@@ -7,12 +7,12 @@ const axios = require('axios');
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 const upload = require("../cloudinaryConfig/cloudinary.js");
-
+const { ensureLoggedIn } = require('connect-ensure-login')
 
 
 // READ User
 
-userRoutes.get('/profile', (req,res,next)=>{
+userRoutes.get('/profile', ensureLoggedIn('/auth/login'), (req,res,next)=>{
   User.findById(req.user._id).populate('profilePic')
     .then(user=>{
       res.render('user/profile', {user})
@@ -25,7 +25,7 @@ userRoutes.get('/profile', (req,res,next)=>{
 
 // Read All Users
 
-userRoutes.get('/list', (req, res, next)=>{
+userRoutes.get('/list', ensureLoggedIn('/auth/login'), (req, res, next)=>{
   User.find({}).populate('profilePic')
     .then(users=>{
       res.render('user/list', {users})
@@ -38,7 +38,7 @@ userRoutes.get('/list', (req, res, next)=>{
 
 // Read user by Id
 
-userRoutes.get('/:id', (req, res, next)=>{
+userRoutes.get('/:id', ensureLoggedIn('/auth/login'), (req, res, next)=>{
   User.findById(req.params.id).populate('profilePic')
     .then(user=>{
       res.render('user/profile', {user});
@@ -51,7 +51,7 @@ userRoutes.get('/:id', (req, res, next)=>{
 
 // Delete one User
 
-userRoutes.post('/profile/delete', (req, res, next)=>{
+userRoutes.post('/profile/delete', ensureLoggedIn('/auth/login'), (req, res, next)=>{
     User.findByIdAndRemove(req.user._id)
       .then(()=>{
         res.redirect('/');
@@ -64,7 +64,7 @@ userRoutes.post('/profile/delete', (req, res, next)=>{
 
 // GET page to update one User
 
-userRoutes.get('/profile/edit', (req, res, next)=>{
+userRoutes.get('/profile/edit', ensureLoggedIn('/auth/login'), (req, res, next)=>{
   User.findById(req.user._id)
     .then(user=>{
       res.render('user/edit', {user});
@@ -77,7 +77,7 @@ userRoutes.get('/profile/edit', (req, res, next)=>{
 
 // POST to update one user
 
-userRoutes.post("/:id/edit", upload.single("profilePic"), (req, res, next) => {
+userRoutes.post("/:id/edit", ensureLoggedIn('/auth/login'), upload.single("profilePic"), (req, res, next) => {
   let { username, password, email, age } = req.body;
   const update = {
     username,
@@ -129,7 +129,7 @@ userRoutes.post("/:id/edit", upload.single("profilePic"), (req, res, next) => {
 });
 
 
-userRoutes.get('/profile/import', (req, res, next)=>{
+userRoutes.get('/profile/import', ensureLoggedIn('/auth/login'), (req, res, next)=>{
   
   const { importUsername } = req.query;
     axios.get(`https://bgg-json.azurewebsites.net/collection/${importUsername}?grouped=true` )
@@ -144,6 +144,8 @@ userRoutes.get('/profile/import', (req, res, next)=>{
           })
           newGame = new Game({
             name: e.name,
+            theme: 'Strategy',
+            category: 'Eurogame',
             minPlayers: e.minPlayers,
             maxPlayers: e.maxPlayers,
             minAge: 12,
@@ -156,8 +158,6 @@ userRoutes.get('/profile/import', (req, res, next)=>{
           dataResult.push(newGame);
           imageResult.push(newImage);
         });
-        console.log(dataResult[0]);
-        console.log(imageResult[0])
         Promise.all([
           Game.create(dataResult),
           Picture.create(imageResult)

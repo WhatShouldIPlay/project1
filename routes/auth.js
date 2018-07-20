@@ -7,24 +7,25 @@ const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 const multer = require('multer');
 const upload = require("../cloudinaryConfig/cloudinary.js");
+const { ensureLoggedIn, ensureLoggedOut } = require('connect-ensure-login');
 
 
-authRoutes.get("/login", (req, res, next) => {
+authRoutes.get("/login", ensureLoggedOut('/auth/login'), (req, res, next) => {
   res.render("auth/login", { "message": req.flash("error") });
 });
 
-authRoutes.post("/login", passport.authenticate("local", {
+authRoutes.post("/login", ensureLoggedOut('/auth/login'), passport.authenticate("local", {
   successRedirect: "/user/profile",
   failureRedirect: "/auth/login",
   failureFlash: true,
   passReqToCallback: true
 }));
 
-authRoutes.get("/signup", (req, res, next) => {
+authRoutes.get("/signup", ensureLoggedOut('/auth/signup'), (req, res, next) => {
   res.render("auth/signup");
 });
 
-authRoutes.post("/signup", upload.single('profilePic'), (req, res, next) => {
+authRoutes.post("/signup", ensureLoggedOut('/auth/signup'), upload.single('profilePic'), (req, res, next) => {
   const {username, password, email, age } = req.body;
   
   if (username === "" || password === "") {
@@ -66,15 +67,15 @@ authRoutes.post("/signup", upload.single('profilePic'), (req, res, next) => {
   });
 });
 
-authRoutes.get("/logout", (req, res) => {
+authRoutes.get("/logout", ensureLoggedIn('/auth/login'), (req, res) => {
   req.logout();
   res.redirect("/");
 });
 
 //Google social login
-authRoutes.get("/google", passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+authRoutes.get("/google", ensureLoggedOut('/auth/login'), passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
 
-authRoutes.get("/google/callback", passport.authenticate("google", {
+authRoutes.get("/google/callback", ensureLoggedOut('/auth/login'), passport.authenticate("google", {
   successRedirect: "/user/profile",
   failureRedirect: "/"
 }));

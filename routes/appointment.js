@@ -10,8 +10,9 @@ const dateOptions = {
   month: 'long',
   day: 'numeric'
 };
+const { ensureLoggedIn } = require('connect-ensure-login');
 
-appointmentRoutes.get('/list', (req, res, next) => {
+appointmentRoutes.get('/list', ensureLoggedIn('/auth/login'), (req, res, next) => {
   Appointment.find({})
     .populate('players', 'username')
     .populate('group', 'name')
@@ -32,11 +33,11 @@ appointmentRoutes.get('/list', (req, res, next) => {
     })
 });
 
-appointmentRoutes.get('/new', (req, res, next) => {
+appointmentRoutes.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
   res.render('appointment/new');
 })
 
-appointmentRoutes.post('/new', (req, res, next) => {
+appointmentRoutes.post('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
   let {
     date,
     time,
@@ -89,7 +90,7 @@ appointmentRoutes.post('/new', (req, res, next) => {
     });
 })
 
-appointmentRoutes.get('/:id', (req, res, next) => {
+appointmentRoutes.get('/:id', ensureLoggedIn('/auth/login'), (req, res, next) => {
   Appointment.findById(req.params.id)
     .populate('players')
     .populate('group', 'name')
@@ -106,7 +107,7 @@ appointmentRoutes.get('/:id', (req, res, next) => {
     })
 })
 
-appointmentRoutes.post('/:id/delete', (req, res, next) => {
+appointmentRoutes.post('/:id/delete', ensureLoggedIn('/auth/login'), (req, res, next) => {
   Appointment.findByIdAndRemove(req.params.id)
     .then(() => {
       res.redirect('/appointment/list');
@@ -117,7 +118,7 @@ appointmentRoutes.post('/:id/delete', (req, res, next) => {
     })
 })
 
-appointmentRoutes.get('/:id/edit', (req, res, next) => {
+appointmentRoutes.get('/:id/edit', ensureLoggedIn('/auth/login'), (req, res, next) => {
   Appointment.findById(req.params.id)
     .populate('group', 'name')
     .populate('players', 'username')
@@ -134,7 +135,7 @@ appointmentRoutes.get('/:id/edit', (req, res, next) => {
     });
 })
 
-appointmentRoutes.post('/:id/edit', (req, res, next) => {
+appointmentRoutes.post('/:id/edit', ensureLoggedIn('/auth/login'), (req, res, next) => {
   let {
     date,
     time,
@@ -167,7 +168,7 @@ appointmentRoutes.post('/:id/edit', (req, res, next) => {
     });
 });
 
-appointmentRoutes.post('/search', (req, res, next) => {
+appointmentRoutes.post('/search', ensureLoggedIn('/auth/login'), (req, res, next) => {
   let {
     game,
     date,
